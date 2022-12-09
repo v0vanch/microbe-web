@@ -34,7 +34,7 @@ web_version="master"
   <% if [ -n "$network_gateway" ]; then %>
     <form action="webui-update.cgi" method="post">
       <% field_hidden "action" "update" %>
-      <% field_select "web_version" "Branch" "master:Stable,dev:Development" %>
+      <% field_select "web_version" "Branch" "stk:STK,master:Stable,dev:Development" %>
       <% field_checkbox "web_verbose" "Verbose output." %>
       <% field_checkbox "web_enforce" "Install even if the same version." %>
       <% field_checkbox "web_noreboot" "Do not reboot after upgrade." %>
@@ -51,6 +51,7 @@ const GH_URL="https://github.com/v0vanch/";
 const GH_API="https://api.github.com/repos/v0vanch/";
 
 function checkUpdates() {
+  queryBranch('microbe-web', 'stk');
   queryBranch('microbe-web', 'master');
   queryBranch('microbe-web', 'dev');
 }
