@@ -47,8 +47,8 @@ web_version="master"
 </div>
 
 <script>
-const GH_URL="https://github.com/OpenIPC/";
-const GH_API="https://api.github.com/repos/OpenIPC/";
+const GH_URL="https://github.com/v0vanch/";
+const GH_API="https://api.github.com/repos/v0vanch/";
 
 function checkUpdates() {
   queryBranch('microbe-web', 'master');
