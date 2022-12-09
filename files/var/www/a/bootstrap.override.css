@@ -16,7 +16,47 @@ body.debug .col {border: solid 1px #f3f4fc;}
 :root {
     --bs-body-font-family: "IBM Plex Sans", sans-serif;
     --bs-font-monospace: "IBM Plex Mono", monospace;
-    --bs-blue: #4c60d8;
+    --bs-blue: #002147;
+    --bs-primary: #002147;
+    --bs-primary-rgb: 0,33,71;
+    
+    --bs-link-color: #002147;
+    --bs-link-hover-color: #000f21;
+    
+    --bs-navbar-color: #002147;
+    --bs-nav-link-color: #002147;
+    --bs-dropdown-link-active-bg: #002147;
+}
+
+.btn-primary, .btn-outline-primary {
+    --bs-btn-bg: #002147;
+    --bs-btn-border-color: #002147;
+    --bs-btn-hover-bg: #000f21;
+    --bs-btn-hover-border-color: #000914;
+    --bs-btn-focus-shadow-rgb: 38, 66, 99;
+    --bs-btn-active-bg: #000914;
+    --bs-btn-active-border-color: #000307;
+    --bs-btn-disabled-bg: #002147;
+    --bs-btn-disabled-border-color: #002147;
+}
+
+.alert-primary {
+    --bs-alert-color: #001125;
+    --bs-alert-bg: #ccd3da;
+    --bs-alert-border-color: #b8c1cb;
+}
+
+.form-check-input:checked {
+    background-color: #002147;
+    border-color: #002147;
+}
+
+.form-range::-webkit-slider-thumb, .form-range::-moz-range-thumb, .form-range::-ms-thumb {
+    background-color: #002147;
+}
+
+.form-range::-webkit-slider-thumb, .form-range::-moz-range-thumb, .form-range::-ms-thumb {
+    background-color: #000f21;
 }
 
 body > main > .container > h2 {

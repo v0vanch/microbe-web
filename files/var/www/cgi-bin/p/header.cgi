@@ -18,12 +18,12 @@ Pragma: no-cache
 </head>
 
 <body id="page-<%= $pagename %>" class="<%= $fw_variant %><% [ "$debug" -ge "1" ] && echo -n " debug" %>">
-  <nav class="navbar navbar-dark navbar-expand-lg">
+  <nav class="navbar bg-white shadow-sm navbar-expand-lg mb-2">
     <div class="container">
       <a class="navbar-brand" href="status.cgi"><img alt="Image: OpenIPC logo" height="32" src="/a/logo.svg">
-       <span class="x-small"><%= $fw_variant %></span></a>
+       <span class="x-small ms-3"><%= $fw_variant %></span></a>
       <% if [ -n "$soc_temp" ]; then %>
-        <span id="soc-temp" class="text-primary bg-white rounded small" title="<%= $tSoCTemp %>"><%= $soc_temp %>°C</span>
+        <span id="soc-temp" class="text-white bg-primary rounded small" title="<%= $tSoCTemp %>"><%= $soc_temp %>°C</span>
       <% fi %>
       <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
         <span class="navbar-toggler-icon"></span>
