@@ -5,7 +5,7 @@
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
-    <h3>Camera</h3>
+    <h3>Камера</h3>
     <h5>Hardware</h5>
     <dl class="small list">
       <dt>Processor</dt>
