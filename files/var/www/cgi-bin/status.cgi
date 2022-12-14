@@ -8,34 +8,34 @@
     <h3>Камера</h3>
     <h5>Hardware</h5>
     <dl class="small list">
-      <dt>Processor</dt>
+      <dt>Процессор</dt>
       <dd><%= $soc %></dd>
-      <dt>Family</dt>
+      <dt>Семейство</dt>
       <dd><%= $soc_family %></dd>
-      <dt>Sensor</dt>
+      <dt>Сенсор</dt>
       <dd><%= $sensor_ini %></dd>
-      <dt>Flash</dt>
+      <dt>Память</dt>
       <dd><%= $flash_size %> MB</dd>
     </dl>
   </div>
 
   <div class="col">
-    <h3>System</h3>
-    <h5>Firmware</h5>
+    <h3>Система</h3>
+    <h5>Прошивка</h5>
     <dl class="small list">
-      <dt>Version</dt>
+      <dt>Версия</dt>
       <dd><%= "${fw_version}-${fw_variant}" %></dd>
-      <dt>Build</dt>
+      <dt>Сборка</dt>
       <dd><%= $fw_build %></dd>
       <dt>Majestic</dt>
       <dd><%= $mj_version %></dd>
-      <dt>Hostname</dt>
+      <dt>Имя устройства</dt>
       <dd><%= $network_hostname %></dd>
     </dl>
   </div>
 
   <div class="col">
-    <h3>Date & Time</h3>
+    <h3>Дата и Время</h3>
     <% ex "/bin/date" %>
     <div class="d-grid d-xxl-flex gap-2 mx-auto">
       <a href="timezone.cgi" class="btn btn-primary">Change timezone</a>
@@ -46,13 +46,13 @@
 
 <div class="row g-4 mb-4">
   <div class="col ">
-    <h3>Resources</h3>
+    <h3>Ресурсы</h3>
     <% ex "/usr/bin/uptime" %>
     <% ex "df -T" %>
     <% ex "cat /proc/meminfo | grep Mem" %>
   </div>
   <div class="col">
-    <h3>Top 20 Processes</h3>
+    <h3>Top 20 Процессов</h3>
     <% ex "top -n 1 -b | sed '/top -n/d' | sed '1,4d' | head -20" %>
   </div>
 </div>
