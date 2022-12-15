@@ -1,7 +1,7 @@
 #!/usr/bin/haserl
 <%in p/common.cgi %>
 <%
-page_title="Updating Web UI"
+page_title="Обновление веб-интерфейса"
 c="/usr/sbin/updatewebui.sh"
 reboot="true"
 [ "true" = "$POST_web_enforce" ] && c="${c} -f"

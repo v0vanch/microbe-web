@@ -37,7 +37,7 @@
   <div class="col">
     <h3>Дата и Время</h3>
     <% ex "/bin/date" %>
-    <div class="d-grid d-xxl-flex gap-2 mx-auto">
+    <div class="d-grid gap-2 mx-auto">
       <a href="timezone.cgi" class="btn btn-primary">Изменить временную зону</a>
       <a href="network-ntp.cgi" class="btn btn-primary">Настроить синхронизацию времени</a>
     </div>

@@ -16,9 +16,9 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     if [ -z "$file_name" ]; then
       error="Файл не найден! Вы не забыли его загрузить?"
     elif [ "$magicnum" != $(xxd -p -l 6 $file) ]; then
-      error="File magic number does not match. Did you upload a wrong file?"
+      error="Магические числа файла не совпадают. Вы загружаете корректный файл?"
     elif [ -f "/usr/lib/sensors/${file_name}" ]; then
-      error="File already exists!"
+      error="Файл уже существует!"
     fi
   fi
 
@@ -30,9 +30,9 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     if [ -z "$file_name" ]; then
       error="Файл не найден! Вы не забыли его загрузить?"
     elif [ -n $(grep "\[sensor\]" $file) ]; then
-      error="File magic number does not match. Did you upload a wrong file?"
+      error="Магические числа файла не совпадают. Вы загружаете корректный файл?"
     elif [ -f "/etc/sensors/${file_name}" ]; then
-      error="File already exists!"
+      error="Файл уже существует!"
     fi
   fi
 
@@ -40,11 +40,11 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     case "$type" in
     driver)
       mv "$file_path" "/usr/lib/sensors/${file_name}"
-      redirect_to $SCRIPT_NAME "success" "Sensor driver uploaded."
+      redirect_to $SCRIPT_NAME "success" "Драйвер сенсора загружен."
       ;;
     config)
       mv "$file_path" "/etc/sensors/${file_name}"
-      redirect_to $SCRIPT_NAME "success" "Sensor config uploaded."
+      redirect_to $SCRIPT_NAME "success" "Конфигурация сенсора загружена."
       ;;
     esac
   fi
@@ -56,25 +56,25 @@ fi
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
-    <h3>Sensor Drivers</h3>
+    <h3>Драйвера сенсора</h3>
     <% ex "ls /usr/lib/sensors/" %>
   </div>
   <div class="col">
-    <h3>Upload sensor driver</h3>
+    <h3>Загрузить драйвер сенсора</h3>
     <form action="<%= $SCRIPT_NAME %>" method="post" enctype="multipart/form-data">
-      <% field_file "sensor_driver_file" "Sensor driver file" %>
-      <% button_submit "Upload file" %>
+      <% field_file "sensor_driver_file" "Файл драйвера сенсора" %>
+      <% button_submit "Загрузить файл" %>
     </form>
   </div>
   <div class="col">
-    <h3>Sensor Configs</h3>
+    <h3>Конфигурация сенсора</h3>
     <% ex "ls /etc/sensors/" %>
   </div>
   <div class="col">
-    <h3>Upload sensor config</h3>
+    <h3>Загрузить конфигурацию сенсора</h3>
     <form action="<%= $SCRIPT_NAME %>" method="post" enctype="multipart/form-data">
-      <% field_file "sensor_config_file" "Sensor config file" %>
-      <% button_submit "Upload file" %>
+      <% field_file "sensor_config_file" "Файл конфигурации сенсора" %>
+      <% button_submit "Загрузить файл" %>
     </form>
   </div>
 </div>

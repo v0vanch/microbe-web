@@ -8,12 +8,12 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     redirect_back
     ;;
   *)
-    redirect_to $SCRIPT_NAME "danger" "UNKNOWN ACTION: $POST_action"
+    redirect_to $SCRIPT_NAME "danger" "НЕИЗВЕСТНОЕ ДЕЙСТВИЕ: $POST_action"
     ;;
   esac
 fi
 
-page_title="Web Interface"
+page_title="Веб-интерфейс"
 
 web_version="master"
 [ -n "$ui_version" ] && web_version="$(echo "$ui_version" | cut -d+ -f1)"
@@ -22,26 +22,27 @@ web_version="master"
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
-    <h3>Version</h3>
+    <h3>Версия</h3>
     <dl class="list small">
-      <dt>Installed</dt><dd><%= $ui_version %></dd>
-      <dt>Stable</dt><dd id="microbe-web-master-ver"></dd>
-      <dt>Unstable</dt><dd id="microbe-web-dev-ver"></dd>
+      <dt>Установлена</dt><dd><%= $ui_version %></dd>
+      <dt>Стабильная</dt><dd id="microbe-web-master-ver"></dd>
+      <dt>Нестабильная</dt><dd id="microbe-web-dev-ver"></dd>
+      <dt>STK</dt><dd id="microbe-web-stk-ver"></dd>
     </dl>
   </div>
   <div class="col">
-    <h3>Upgrade</h3>
+    <h3>Обновление</h3>
   <% if [ -n "$network_gateway" ]; then %>
     <form action="webui-update.cgi" method="post">
       <% field_hidden "action" "update" %>
-      <% field_select "web_version" "Branch" "master:Stable,dev:Development,stk:STK" %>
-      <% field_checkbox "web_verbose" "Verbose output." %>
-      <% field_checkbox "web_enforce" "Install even if the same version." %>
-      <% field_checkbox "web_noreboot" "Do not reboot after upgrade." %>
-      <% button_submit "Install update from GitHub" "warning" %>
+      <% field_select "web_version" "Ветка" "master:Stable,dev:Development,stk:STK" %>
+      <% field_checkbox "web_verbose" "Подробный вывод." %>
+      <% field_checkbox "web_enforce" "Установить, даже если версия не поменялась." %>
+      <% field_checkbox "web_noreboot" "Не перезагружать систему после обновления." %>
+      <% button_submit "Установить обновление с GitHub" "warning" %>
     </form>
   <% else %>
-    <p class="alert alert-danger">Upgrading requires access to GitHub.</p>
+    <p class="alert alert-danger">Для обновления требуется доступ к GitHub.</p>
   <% fi %>
   </div>
 </div>

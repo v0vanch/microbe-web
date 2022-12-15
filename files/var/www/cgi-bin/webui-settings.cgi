@@ -7,10 +7,10 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
   case "$POST_action" in
   access)
     new_password="$POST_ui_password"
-    [ -z "$new_password" ] && error="Password cannot be empty!"
-    [ "$ui_password_fw" = "$new_password" ] && error="You cannot use default password!"
-    [ -n "$(echo "$new_password" | grep " ")" ] && error="Password cannot have spaces!"
-    [ "5" -ge "${#new_password}" ] && error="Password cannot be shorter than 6 characters!"
+    [ -z "$new_password" ] && error="Пароль не может быть пустым!"
+    [ "$ui_password_fw" = "$new_password" ] && error="Нельзя использовать стандартный пароль!"
+    [ -n "$(echo "$new_password" | grep " ")" ] && error="Пароль не может содержать пробелы!"
+    [ "5" -ge "${#new_password}" ] && error="Пароль не может быть короче 6 символов!"
 
     [ -n "$error" ] && redirect_to $SCRIPT_NAME "danger" "$error"
 
@@ -21,7 +21,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     # prepare for passwordless login
     [ ! -d "/root/.ssh" ] && ln -s /etc/dropbear /root/.ssh
 
-    redirect_to "/" "success" "Password updated."
+    redirect_to "/" "success" "Пароль обновлен."
     ;;
 
   locale)
@@ -37,7 +37,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     echo "$locale" >$locale_file
     reload_locale
     update_caminfo
-    redirect_to $SCRIPT_NAME "success" "Locale updated."
+    redirect_to $SCRIPT_NAME "success" "Язык обновлен."
     ;;
 
   *)
@@ -46,7 +46,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
   esac
 fi
 
-page_title="Web Interface Settings"
+page_title="Настройки веб-интерфейса"
 
 # data for form fields
 ui_username="admin"
@@ -65,29 +65,29 @@ fi
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
-    <h3>Access</h3>
+    <h3>Доступ</h3>
     <form action="<%= $SCRIPT_NAME %>" method="post">
       <% field_hidden "action" "access" %>
       <p class="string">
-        <label for="ui_username" class="form-label">Username</label>
+        <label for="ui_username" class="form-label">Логин</label>
         <input type="text" id="ui_username" name="ui_username" value="admin" class="form-control" autocomplete="username" disabled>
       </p>
-      <% field_password "ui_password" "Password" %>
+      <% field_password "ui_password" "Пароль" %>
       <% button_submit %>
     </form>
   </div>
 <!--
   <div class="col">
-    <h3>Locale</h3>
+    <h3>Язык</h3>
     <form action="<%= $SCRIPT_NAME %>" method="post" enctype="multipart/form-data">
       <% field_hidden "action" "locale" %>
-      <% field_select "ui_language" "Interface Language" "$ui_locales" %>
-      <%# field_file "ui_locale_file" "Locale file" %>
+      <% field_select "ui_language" "Язык интерфейса" "$ui_locales" %>
+      <%# field_file "ui_locale_file" "Файл локализации" %>
       <% button_submit %>
     </form>
   </div>
   <div class="col">
-    <h3>Configuration</h3>
+    <h3>Конфигурация</h3>
     <%
     ex "cat /etc/httpd.conf"
     #ex "echo \$locale"

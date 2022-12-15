@@ -1,7 +1,7 @@
 #!/usr/bin/haserl
 <%in p/common.cgi %>
 <%
-page_title="Camera preview"
+page_title="Камера"
 
 size=$(yaml-cli -g .mjpeg.size); [ -z "$size" ] && size="640x480"
 size_w=${size%x*}
@@ -19,50 +19,50 @@ size_h=${size#*x}
         <div class="input-group-text">
           <img src="/a/light-off.svg" alt="Image: Night mode indicator" id="night-mode-status">
         </div>
-        <button class="form-control btn btn-primary text-start" type="button" id="toggle-night-mode">Toggle night mode</button>
+        <button class="form-control btn btn-primary text-start" type="button" id="toggle-night-mode">Вкл/выкл ночной режим</button>
         <div class="input-group-text">
           <a href="majestic-settings.cgi?tab=nightMode" title="Night mode settings"><img src="/a/gear.svg" alt="Gear"></a>
         </div>
       </div>
       <div class="input-group">
-        <button class="form-control btn btn-primary text-start" type="button" data-sendto="email">Send to email</button>
+        <button class="form-control btn btn-primary text-start" type="button" data-sendto="email">Отправить по email</button>
         <div class="input-group-text">
           <a href="plugin-send2email.cgi" title="Email settings"><img src="/a/gear.svg" alt="Gear"></a>
         </div>
       </div>
       <div class="input-group">
-        <button class="form-control btn btn-primary text-start" type="button" data-sendto="ftp">Send to FTP</button>
+        <button class="form-control btn btn-primary text-start" type="button" data-sendto="ftp">Отправить по FTP</button>
         <div class="input-group-text">
           <a href="plugin-send2ftp.cgi" title="FTP Storage settings"><img src="/a/gear.svg" alt="Gear"></a>
         </div>
       </div>
       <div class="input-group">
-        <button class="form-control btn btn-primary text-start" type="button" data-sendto="telegram">Send to Telegram</button>
+        <button class="form-control btn btn-primary text-start" type="button" data-sendto="telegram">Отправить через Telegram</button>
         <div class="input-group-text">
-          <a href="plugin-send2telegram.cgi" title="Telegram bot settings"><img src="/a/gear.svg" alt="Gear"></a>
+          <a href="plugin-send2telegram.cgi" title="Настройки Telegram бота"><img src="/a/gear.svg" alt="Gear"></a>
         </div>
       </div>
       <div class="input-group">
-        <button class="form-control btn btn-primary text-start" type="button" data-sendto="webhook">Send to webhook</button>
+        <button class="form-control btn btn-primary text-start" type="button" data-sendto="webhook">Отправить на веб-хук</button>
         <div class="input-group-text">
-          <a href="plugin-send2webhook.cgi" title="Webhook settings"><img src="/a/gear.svg" alt="Gear"></a>
+          <a href="plugin-send2webhook.cgi" title="Настройки веб-хука"><img src="/a/gear.svg" alt="Gear"></a>
         </div>
       </div>
       <div class="input-group">
-        <button class="form-control btn btn-primary text-start" type="button" data-sendto="yadisk">Send to Yandex Disk</button>
+        <button class="form-control btn btn-primary text-start" type="button" data-sendto="yadisk">Отправить на Яндекс Диск</button>
         <div class="input-group-text">
-          <a href="plugin-send2yadisk.cgi" title="Yandex Disk bot settings"><img src="/a/gear.svg" alt="Gear"></a>
+          <a href="plugin-send2yadisk.cgi" title="Настройки Яндекс Диска"><img src="/a/gear.svg" alt="Gear"></a>
         </div>
       </div>
       <div class="input-group">
-        <button class="form-control btn btn-primary text-start" type="button" data-sendto="openwall">Send to Open Wall</button>
+        <button class="form-control btn btn-primary text-start" type="button" data-sendto="openwall">Отправить на Open Wall</button>
         <div class="input-group-text">
-          <a href="plugin-send2openwall.cgi" title="Open Wall settings"><img src="/a/gear.svg" alt="Gear"></a>
+          <a href="plugin-send2openwall.cgi" title="Настройки Open Wall"><img src="/a/gear.svg" alt="Gear"></a>
         </div>
       </div>
     </div>
     <div class="alert alert-danger small">
-      PTZ feature is not ready. Please consider <a href="https://t.me/OpenIPC">supporting further development</a>.
+      Функция PTZ еще не готова. Пожалуйста, рассмотрите возможность <a href="https://t.me/OpenIPC">поддержки дальнейшей разработки</a>.
     </div>
   </div>
 </div>

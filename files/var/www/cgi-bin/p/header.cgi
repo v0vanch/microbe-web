@@ -21,7 +21,7 @@ Pragma: no-cache
   <nav class="navbar bg-white shadow-sm navbar-expand-lg mb-2">
     <div class="container">
       <a class="navbar-brand" href="status.cgi"><img alt="Image: OpenIPC logo" height="32" src="/a/logo.svg">
-       <span class="x-small ms-3"><%= $fw_variant %></span></a>
+        <!--<span class="x-small ms-3"><%= $fw_variant %></span></a>-->
       <% if [ -n "$soc_temp" ]; then %>
         <span id="soc-temp" class="text-white bg-primary rounded small" title="<%= $tSoCTemp %>"><%= $soc_temp %>°C</span>
       <% fi %>
@@ -31,37 +31,37 @@ Pragma: no-cache
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
-            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownInformation" role="button">Information</a>
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownInformation" role="button">Инфо</a>
             <ul aria-labelledby="dropdownInformation" class="dropdown-menu">
-              <li><a class="dropdown-item" href="status.cgi">Overview</a></li>
-              <li><a class="dropdown-item" href="info-cron.cgi">Cron config</a></li>
-              <li><a class="dropdown-item" href="info-dmesg.cgi">Diagnostic messages</a></li>
-              <li><a class="dropdown-item" href="info-httpd.cgi">HTTPd environment</a></li>
-              <li><a class="dropdown-item" href="info-modules.cgi">Modules</a></li>
-              <li><a class="dropdown-item" href="info-netstat.cgi">Network stats</a></li>
-              <li><a class="dropdown-item" href="info-log.cgi">Log read</a></li>
-              <li><a class="dropdown-item" href="info-overlay.cgi">Overlay partition</a></li>
+              <li><a class="dropdown-item" href="status.cgi">Статус</a></li>
+              <li><a class="dropdown-item" href="info-cron.cgi">Настройки Cron</a></li>
+              <li><a class="dropdown-item" href="info-dmesg.cgi">Диагностические сообщения</a></li>
+              <li><a class="dropdown-item" href="info-httpd.cgi">HTTPd среда</a></li>
+              <li><a class="dropdown-item" href="info-modules.cgi">Модули</a></li>
+              <li><a class="dropdown-item" href="info-netstat.cgi">Статистика сети</a></li>
+              <li><a class="dropdown-item" href="info-log.cgi">Логи</a></li>
+              <li><a class="dropdown-item" href="info-overlay.cgi">Раздел оверлея</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownUpdates" role="button">Updates</a>
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownUpdates" role="button">Обновления</a>
             <ul aria-labelledby="dropdownUpdates" class="dropdown-menu">
-              <li><a class="dropdown-item" href="firmware.cgi">Firmware</a></li>
-              <li><a class="dropdown-item" href="webui.cgi">Web Interface</a></li>
+              <li><a class="dropdown-item" href="firmware.cgi">Прошивка</a></li>
+              <li><a class="dropdown-item" href="webui.cgi">Веб-интефейс</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownSettings" role="button">Settings</a>
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownSettings" role="button">Настройки</a>
             <ul aria-labelledby="dropdownSettings" class="dropdown-menu">
-              <li><a class="dropdown-item" href="network.cgi">Network</a></li>
-              <li><a class="dropdown-item" href="timezone.cgi">Timezone</a></li>
-              <li><a class="dropdown-item" href="network-ntp.cgi">Time Synchronization</a></li>
-              <li><a class="dropdown-item" href="network-socks5.cgi">SOCKS5 Proxy</a></li>
-              <li><a class="dropdown-item" href="webui-settings.cgi">Web Interface</a></li>
-              <li><a class="dropdown-item" href="admin.cgi">Admin Profile</a></li>
-              <li><a class="dropdown-item" href="debugging.cgi">Debugging</a></li>
+              <li><a class="dropdown-item" href="network.cgi">Сеть</a></li>
+              <li><a class="dropdown-item" href="timezone.cgi">Временная зона</a></li>
+              <li><a class="dropdown-item" href="network-ntp.cgi">Синхронизация времени</a></li>
+              <li><a class="dropdown-item" href="network-socks5.cgi">SOCKS5 Прокси</a></li>
+              <li><a class="dropdown-item" href="webui-settings.cgi">Веб-интерфейс</a></li>
+              <li><a class="dropdown-item" href="admin.cgi">Профиль админа</a></li>
+              <li><a class="dropdown-item" href="debugging.cgi">Отладка</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="reset.cgi">Reset...</a></li>
+              <li><a class="dropdown-item" href="reset.cgi">Сброс...</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -86,27 +86,27 @@ unset _css; unset _param_domain; unset _line; unset _param_name; unset _paramete
 %>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="info-majestic.cgi">Majestic YAML</a></li>
-              <li><a class="dropdown-item" href="majestic-config-actions.cgi">Majestic Maintenance</a></li>
+              <li><a class="dropdown-item" href="majestic-config-actions.cgi">Обслуживание Majestic</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
             <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownTools" role="button">Tools</a>
             <ul aria-labelledby="dropdownTools" class="dropdown-menu">
               <li><a class="dropdown-item" href="tools.cgi">Ping & Traceroute</a></li>
-              <li><a class="dropdown-item" href="console.cgi">Web Console</a></li>
-              <li><a class="dropdown-item" href="ssh-keys.cgi">SSH Key</a></li>
-              <li><a class="dropdown-item" href="sdcard.cgi">SD Card</a></li>
+              <li><a class="dropdown-item" href="console.cgi">Веб консоль</a></li>
+              <li><a class="dropdown-item" href="ssh-keys.cgi">SSH ключ</a></li>
+              <li><a class="dropdown-item" href="sdcard.cgi">SD карта</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownServices" role="button">Services</a>
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownServices" role="button">Сервисы</a>
             <ul aria-labelledby="dropdownServices" class="dropdown-menu">
               <% load_plugins %>
             </ul>
           </li>
-          <li class="nav-item"><a class="nav-link" href="preview.cgi">Preview</a></li>
+          <li class="nav-item"><a class="nav-link" href="preview.cgi">Камера</a></li>
           <li class="nav-item dropdown">
-            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownHelp" role="button">Help</a>
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownHelp" role="button">Помощь</a>
             <ul aria-labelledby="dropdownHelp" class="dropdown-menu dropdown-menu-lg-end">
               <li><a class="dropdown-item" href="https://openipc.org/">About OpenIPC</a></li>
               <li><a class="dropdown-item" href="https://openipc.org/majestic-endpoints">Majestic Endpoints</a></li>
@@ -124,59 +124,59 @@ unset _css; unset _param_domain; unset _line; unset _param_name; unset _paramete
 
 <% if [ -z "$network_gateway" ]; then %>
 <div class="alert alert-warning">
-<p class="mb-0">No Internet connection. Please <a href="network.cgi">check your network settings</a>.</p>
+<p class="mb-0">Нет соединения с интернетом. Пожалуйста, <a href="network.cgi">проверьте настройки сети</a>.</p>
 </div>
 <% fi %>
 
 <% if [ "true" = "$openwall_socks5_enabled" ] || [ "true" = "$telegram_socks5_enabled" ] || [ "true" = "$yadisk_socks5_enabled" ]; then
   if [ -z "$socks5_host" ] || [ -z "$socks5_port" ]; then %>
 <div class="alert alert-danger">
-<p class="mb-0">You want to use SOCKS5 proxy but it is not configured! Please <a href="network-socks5.cgi">configure the proxy</a>.</p>
+<p class="mb-0">SOCKS5 прокси включен, но не настроен! Пожалуйста, <a href="network-socks5.cgi">настройте прокси</a>.</p>
 </div>
 <% fi; fi %>
 
 <% if [ "true" = "$speaker_enabled" ] && [ "true" != "$(yaml-cli -g .audio.enabled)" ]; then %>
 <div class="alert alert-danger">
-<p class="mb-0">You need to enable audio in <a href="majestic-settings.cgi?tab=audio">Majestic settings.</a></p>
+<p class="mb-0">Необходимо включить аудио в <a href="majestic-settings.cgi?tab=audio">настройках Majestic.</a></p>
 </div>
 <% fi %>
 
 <% if [ "$(cat /etc/TZ)" != "$TZ" ]; then %>
 <div class="alert alert-danger">
-<p>$TZ variable in system environment needs updating!</p>
+<p>$TZ переменная в системной среде нуждается в обновлении!</p>
 <span class="d-flex gap-3">
-<a class="btn btn-danger" href="reboot.cgi">Reboot camera</a>
-<a class="btn btn-primary" href="timezone.cgi">See timezone settings</a>
+<a class="btn btn-danger" href="reboot.cgi">Перезагрузить камеру</a>
+<a class="btn btn-primary" href="timezone.cgi">Настройки временной зоны</a>
 </span>
 </div>
 <% fi %>
 
 <% if [ -f /tmp/network-restart.txt ]; then %>
 <div class="alert alert-danger">
-<p>Network settings have been updated. Restart to apply changes.</p>
+<p>Настройки сети были обновлены. Перезагрузите камеру, чтобы изменения вступили в силу.</p>
 <span class="d-flex gap-3">
-<a class="btn btn-danger" href="reboot.cgi">Reboot camera</a>
-<a class="btn btn-primary" href="network.cgi">See network settings</a>
+<a class="btn btn-danger" href="reboot.cgi">Перезагрузить камеру</a>
+<a class="btn btn-primary" href="network.cgi">Настройки сети</a>
 </span>
 </div>
 <% fi %>
 
 <% if [ -f /tmp/coredump-restart.txt ]; then %>
 <div class="alert alert-danger">
-<p>Majestic debugging settings have been updated. Restart to apply changes.</p>
+<p>Настройки отладки Majestic были обновлены. Перезагрузите камеру, чтобы изменения вступили в силу.</p>
 <span class="d-flex gap-3">
-<a class="btn btn-danger" href="reboot.cgi">Reboot camera</a>
-<a class="btn btn-primary" href="debugging.cgi">See debugging settings</a>
+<a class="btn btn-danger" href="reboot.cgi">Перезагрузить камеру</a>
+<a class="btn btn-primary" href="debugging.cgi">Настройки отладки</a>
 </span>
 </div>
 <% fi %>
 
 <% if [ -f /tmp/motionguard-restart.txt ]; then %>
 <div class="alert alert-danger">
-<p>Changes to motion guard configuration detected. Please restart camera to apply the changes.</p>
+<p>Настройки отслеживания движения были обновлены. Перезагрузите камеру, чтобы изменения вступили в силу.</p>
 <span class="d-flex gap-3">
-<a class="btn btn-danger" href="reboot.cgi">Reboot camera</a>
-<a class="btn btn-primary" href="plugin-motion.cgi">See motion guard settings</a>
+<a class="btn btn-danger" href="reboot.cgi">Перезагрузить камеру</a>
+<a class="btn btn-primary" href="plugin-motion.cgi">Настройки отслеживания движения</a>
 </span>
 </div>
 <% fi %>

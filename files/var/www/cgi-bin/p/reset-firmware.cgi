@@ -1,5 +1,5 @@
 <div class="alert alert-danger">
-<h4>Reset firmware</h4>
-<p>Revert firmware to its original state by wiping out overlay partition. All custom settings and all files stored on overlay partition will be lost!</p>
+<h4>Сброс прошивки</h4>
+<p>Сбросьте прошивку до исходного состояния стерев раздел оверлея. Все изменения в настройках и все файлы хранящиеся на разделе офверлея будут утеряны!</p>
 <% button_reset_firmware %>
 </div>

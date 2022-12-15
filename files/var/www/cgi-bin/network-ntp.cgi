@@ -11,7 +11,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
   case "$POST_action" in
     reset)
       cp /rom/etc/ntp.conf /etc/ntp.conf
-      redirect_back "success" "Конфигурация сброшена в исходное состояние."
+      redirect_back "success" "Конфигурация сброшена до исходного состояния."
       ;;
     sync)
       /usr/sbin/ntpd -n -q -N

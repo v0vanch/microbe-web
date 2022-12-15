@@ -62,44 +62,44 @@ time_http() {
 }
 
 button_download() {
-  echo "<a href=\"dl2.cgi?log=${1}\" class=\"btn btn-primary\">Download log</a>"
+  echo "<a href=\"dl2.cgi?log=${1}\" class=\"btn btn-primary\">Скачать логи</a>"
 }
 
 button_mj_backup() {
   echo "<form action=\"majestic-config-actions.cgi\" method=\"post\">" \
     "<input type=\"hidden\" name=\"action\" value=\"backup\">"
-  button_submit "Backup settings"
+  button_submit "Скачать конфигурацию"
   echo "</form>"
 }
 
 button_mj_reset() {
   echo "<form action=\"majestic-config-actions.cgi\" method=\"post\">" \
     "<input type=\"hidden\" name=\"action\" value=\"reset\">"
-  button_submit "Reset Majestic" "danger"
+  button_submit "Сбросить Majestic" "danger"
   echo "</form>"
 }
 
 button_reboot() {
   echo "<form action=\"reboot.cgi\" method=\"post\">" \
     "<input type=\"hidden\" name=\"action\" value=\"reboot\">"
-  button_submit "Reboot camera" "danger"
+  button_submit "Перезагрузить камеру" "danger"
   echo "</form>"
 }
 
 button_refresh() {
-  echo "<a href=\"${REQUEST_URI}\" class=\"btn btn-primary refresh\">Refresh</a>"
+  echo "<a href=\"${REQUEST_URI}\" class=\"btn btn-primary refresh\">Обновить</a>"
 }
 
 button_reset_firmware() {
   echo "<form action=\"firmware-reset.cgi\" method=\"post\">" \
     "<input type=\"hidden\" name=\"action\" value=\"reset\">"
-  button_submit "Reset firmware" "danger"
+  button_submit "Сбросить прошивку" "danger"
   echo "</form>"
 }
 
 # button_submit "text" "type" "extras"
 button_submit() {
-  _t="$1"; [ -z "$_t" ] && _t="Save changes"
+  _t="$1"; [ -z "$_t" ] && _t="Сохранить изменения"
   _c="$2"; [ -z "$_c" ] && _c="primary"
   _x="$3"; [ -z "$_x" ] && _x=" ${_x}"
   echo "<div class=\"mt-2\"><input type=\"submit\" class=\"btn btn-${_c}\"${_x} value=\"${_t}\"></div>"
@@ -111,7 +111,7 @@ check_password() {
   [ "0${debug}" -ge "1" ] && return
   [ -z "$REQUEST_URI" ] || [ "$REQUEST_URI" = "${_safepage}" ] && return
   if [ -z "$ui_password" ] || [ "$ui_password_fw" = "$ui_password" ]; then
-    redirect_to "${_safepage}" "danger" "You must set your own secure password!"
+    redirect_to "${_safepage}" "danger" "Вы должны установить собственный безопасный пароль!"
   fi
 }
 
@@ -222,7 +222,7 @@ field_password() {
     "<span class=\"input-group\">" \
     "<input type=\"password\" id=\"${1}\" name=\"${1}\" class=\"form-control\" value=\"${_v}\" placeholder=\"K3wLHaZk3R!\">" \
     "<label class=\"input-group-text\">" \
-    "<input type=\"checkbox\" class=\"form-check-input me-1\" data-for=\"${1}\"> show" \
+    "<input type=\"checkbox\" class=\"form-check-input me-1\" data-for=\"${1}\"> показать" \
     "</label>" \
     "</span>"
   [ -n "$_h" ] && echo "<span class=\"hint text-secondary\">${_h}</span>"
@@ -287,7 +287,7 @@ field_select() {
   echo "<p class=\"select\" id=\"${1}_wrap\">" \
     "<label for=\"${1}\" class=\"form-label\">${_l}</label>" \
     "<select class=\"form-select\" id=\"${1}\" name=\"${1}\">"
-  [ -z "$(t_value "$1")" ] && echo "<option value=\"\">Select from available options</option>"
+  [ -z "$(t_value "$1")" ] && echo "<option value=\"\">Выберите один из доступных элементов</option>"
   for o in $_o; do
     _v="${o%:*}"
     _n="${o#*:}"
@@ -340,7 +340,7 @@ field_text() {
 
   _v="$(t_value "$1")"
 
-  #  placeholder="FQDN or IP address"
+  #  placeholder="FQDN или IP address"
   echo "<p class=\"string\" id=\"${1}_wrap\">" \
     "<label for=\"${1}\" class=\"form-label\">${_l}</label>" \
     "<input type=\"text\" id=\"${1}\" name=\"${1}\" class=\"form-control\" value=\"${_v}\">"
@@ -486,7 +486,7 @@ preview() {
   if [ "true" = "$(yaml-cli -g .jpeg.enabled)" ]; then
     echo "<canvas id=\"preview\" style=\"background:gray url(/a/SMPTE_Color_Bars_16x9.svg);background-size:cover;width:100%;height:auto;\"></canvas>"
   else
-    echo "<p class=\"alert alert-warning\"><a href=\"majestic-settings.cgi?tab=jpeg\">Enable JPEG support</a> to see the preview.</p>"
+    echo "<p class=\"alert alert-warning\"><a href=\"majestic-settings.cgi?tab=jpeg\">Включите поддержку JPEG</a> чтобы увидеть изображение с камеры.</p>"
   fi
   echo "<script>
 function calculatePreviewSize() {
@@ -571,7 +571,7 @@ reload_locale() {
 }
 
 report_error() {
-  echo "<h4 class=\"text-danger\">Oops. Something happened.</h4>"
+  echo "<h4 class=\"text-danger\">Упс. Где-то произошла ошибка.</h4>"
   alert "$1" "danger"
 }
 
@@ -581,7 +581,7 @@ report_log() {
 }
 
 report_command_error() {
-  echo "<h4 class=\"text-danger\">Oops. Something happened.</h4>"
+  echo "<h4 class=\"text-danger\">Упс. Где-то произошла ошибка.</h4>"
   echo "<div class=\"alert alert-danger\">"
   report_command_info "$1" "$2"
   echo "</div>"

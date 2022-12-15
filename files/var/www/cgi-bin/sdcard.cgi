@@ -7,8 +7,8 @@ ls /dev/mmc* >/dev/null 2>&1
 if [ $? -ne 0 ]; then
 %>
 <div class="alert alert-danger">
-  <h4>Does this camera support SD Card?</h4>
-  <p>Your camera does not have an SD Card slot or SD Card is not inserted.</p>
+  <h4>Эта камера поддерживает SD карты?</h4>
+  <p>У камеры нет слота для SD карт или SD карта не вставлена.</p>
 </div>
 <%
 else
@@ -20,38 +20,38 @@ else
   if [ -n "$POST_doFormatCard" ]; then
 %>
 <div class="alert alert-danger">
-  <h4>ATTENTION! SD Card formatting takes time.</h4>
-  <p>Please do not refresh this page. Wait until partition formatting is finished!</p>
+  <h4>ВНИМАНИЕ! Форматирование SD карты займет время.</h4>
+  <p>Пожалуйста, не обновляйте эту страницу. Подождите пока форматирование разделов закончится!</p>
 </div>
 <%
     if [ "$(grep $card_partition /etc/mtab)" ]; then
       _c="umount $card_partition"
       _o="${_o}\n${_c}\n$($_c 2>&1)"
-      [ $? -ne 0 ] && error="Cannot unmount SD Card partition."
+      [ $? -ne 0 ] && error="Не удалось размонтировать раздел SD карты."
     fi
 
     if [ -z "$error" ]; then
       _c="echo -e 'o\nn\np\n1\n\n\nw'|fdisk $card_device"
       _o="${_o}\n${_c}\n$($_c 2>&1)"
-      [ $? -ne 0 ] && error="Cannot create an SD Card partition."
+      [ $? -ne 0 ] && error="Не удалось создать раздел SD карты."
     fi
 
     if [ -z "$error" ]; then
       _c="mkfs.vfat -v -n OpenIPC $card_partition"
       _o="${_o}\n${_c}\n$($_c 2>&1)"
-      [ $? -ne 0 ] && error="Cannot format SD Card partition."
+      [ $? -ne 0 ] && error="Не удалось отформатировать раздел SD карты."
     fi
 
     if [ -z "$error" ] && [ ! -d "$mount_point" ]; then
       _c="mkdir -p $mount_point"
       _o="${_o}\n${_c}\n$($_c 2>&1)"
-      [ $? -ne 0 ] && error="Cannot create SD Card mount point."
+      [ $? -ne 0 ] && error="Не удалось создать точку монтирования SD карты."
     fi
 
     if [ -z "$error" ]; then
       _c="mount $card_partition $mount_point"
       _o="${_o}\n${_c}\n$($_c 2>&1)"
-      [ $? -ne 0 ] && error="Cannot re-mount SD Card partition."
+      [ $? -ne 0 ] && error="Не удалось перемонтировать раздел SD карты."
     fi
 
     if [ -n "$error" ]; then
@@ -61,17 +61,17 @@ else
       report_log "$_o"
     fi
 %>
-<a class="btn btn-primary" href="/">Go home</a>
+<a class="btn btn-primary" href="/">На главную</a>
 <% else %>
 <h4># df -h | sed -n "1p/<%= ${card_partition////\\\/} %>/p"</h4>
 <pre class="small"><% df -h | sed -n "1p/${card_partition////\\\/}/p" %></pre>
 
 <div class="alert alert-danger">
-  <h4>ATTENTION! Formatting will destroy all data on the SD Card.</h4>
-  <p>Make sure you have a backup copy if you are going to use the data in the future.</p>
+  <h4>ВНИМАНИЕ! Форматирование уничтожит все данные на SD карте.</h4>
+  <p>Убедитесь, что у вас есть бэкап, если вы собираетесь использовать эти данные в будущем.</p>
   <form action="<%= $SCRIPT_NAME %>" method="post">
     <% field_hidden "doFormatCard" "true" %>
-    <% button_submit "Format SD Card" "danger" %>
+    <% button_submit "Форматировать SD карту" "danger" %>
   </form>
 </div>
 <%

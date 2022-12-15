@@ -44,9 +44,9 @@ function sleep(ms) {
             // for input, find its parent form and attach listener to it submit event
             if (el.nodeName === "INPUT") {
                 while (el.nodeName !== "FORM") el = el.parentNode
-                el.addEventListener('submit', ev => (!confirm("Are you sure?")) ? ev.preventDefault() : null)
+                el.addEventListener('submit', ev => (!confirm("Вы уверены?")) ? ev.preventDefault() : null)
             } else {
-                el.addEventListener('click', ev => (!confirm("Are you sure?")) ? ev.preventDefault() : null)
+                el.addEventListener('click', ev => (!confirm("Вы уверены?")) ? ev.preventDefault() : null)
             }
         });
 

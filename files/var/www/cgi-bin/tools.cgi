@@ -1,7 +1,7 @@
 #!/usr/bin/haserl
 <%in p/common.cgi %>
 <%
-page_title="Monitoring tools"
+page_title="Инструменты мониторинга"
 tools_action="${POST_tools_action:=ping}"
 tools_target="${POST_tools_target:=4.2.2.1}"
 tools_interface="${POST_tools_interface:=auto}"
@@ -11,7 +11,7 @@ tools_duration="${POST_tools_duration:=5}"
 if [ "POST" = "$REQUEST_METHOD" ]; then
   case "$tools_action" in
     ping)
-      title="Ping Quality"
+      title="Проверка ping"
       cmd="ping"
       [ "auto" != "$tools_interface" ] && cmd="$cmd -I $tools_interface"
       cmd="$cmd -s $tools_packet_size"
@@ -19,7 +19,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
       cmd="$cmd $tools_target"
       ;;
     trace)
-      title="Traceroute Quality"
+      title="Проверка traceroute"
       cmd="traceroute"
       # order is important!
       cmd="$cmd -q $tools_duration"
@@ -37,14 +37,14 @@ fi
 
 <div class="row g-4 mb-4">
   <div class="col col-md-4">
-    <h3>Ping Quality</h3>
+    <h3>Проверка сети</h3>
     <form action="<%= $SCRIPT_NAME %>" method="post">
       <% field_select "tools_action" "Action" "ping,trace" %>
-      <% field_text "tools_target" "Target FQDN or IP address" %>
-      <% field_select "tools_interface" "Network interface" "auto,${interfaces}" %>
-      <% field_number "tools_packet_size" "Packet size" "56,65535,1" "Bytes" %>
-      <% field_number "tools_duration" "Number of packets" "1,30,1" %>
-      <% button_submit "Run" %>
+      <% field_text "tools_target" "Целевой FQDN или IP адрес" %>
+      <% field_select "tools_interface" "Сетевой интерфейс" "auto,${interfaces}" %>
+      <% field_number "tools_packet_size" "Размер пакета" "56,65535,1" "Bytes" %>
+      <% field_number "tools_duration" "Кол-во пакетов" "1,30,1" %>
+      <% button_submit "Запуск" %>
     </form>
   </div>
   <div class="col col-md-8">

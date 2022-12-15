@@ -12,17 +12,17 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
   case "$POST_action" in
   restore)
     if [ ! -f "$editor_file" ]; then
-      redirect_to "${SCRIPT_NAME}?f=${editor_file}" "danger" "File not found!"
+      redirect_to "${SCRIPT_NAME}?f=${editor_file}" "danger" "Файл не найден!"
     elif [ ! -f "$editor_file.backup" ]; then
-      redirect_to "${SCRIPT_NAME}?f=${editor_file}" "danger" "File not found!"
+      redirect_to "${SCRIPT_NAME}?f=${editor_file}" "danger" "Файл не найден!"
     else
       mv "$editor_file.backup" "$editor_file"
-      redirect_to "${SCRIPT_NAME}?f=${editor_file}" "success" "File restored from backup."
+      redirect_to "${SCRIPT_NAME}?f=${editor_file}" "success" "Файл восстановлен из бэкапа."
     fi
     ;;
   save)
     if [ -z "$editor_text" ]; then
-      flash_save "warning" "Empty payload. File not saved!"
+      flash_save "warning" "Нет данных. Файл не сохранен!"
     else
       if [ -n "$editor_backup" ]; then
         cp "$editor_file" "${editor_file}.backup"
@@ -30,7 +30,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
         [ -f "${editor_file}.backup" ] && rm "${editor_file}.backup"
       fi
       echo "$editor_text" >"$editor_file"
-      redirect_to "${SCRIPT_NAME}?f=${editor_file}" "success" "File saved."
+      redirect_to "${SCRIPT_NAME}?f=${editor_file}" "success" "Файл сохранен."
     fi
     ;;
   *)
@@ -40,28 +40,28 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
 else
   editor_file="$GET_f"
   if [ ! -f "$editor_file" ]; then
-    flash_save "danger" "File not found!"
+    flash_save "danger" "Файл не найден!"
   elif [ -n "$editor_file" ]; then
     if [ "b" = "$( (cat -v "$editor_file" | grep -q "\^@") && echo "b" )" ]; then
-      flash_save "danger" "Not a text file!"
+      flash_save "danger" "Файл не текстовый!"
     elif [ "$(wc -c $editor_file | awk '{print $1}')" -gt "102400" ]; then
-      flash_save "danger" "Uploded file is too large!"
+      flash_save "danger" "Загруженный файл слишком большой!"
     else
       editor_text="$(cat $editor_file | sed "s/&/\&amp;/g;s/</\&lt;/g;s/>/\&gt;/g;s/\"/\&quot;/g")"
     fi
   fi
 fi
 
-page_title="Text editor"
+page_title="Текстовый редактор"
 %>
 <%in p/header.cgi %>
 
 <ul class="nav nav-tabs" role="tablist">
-  <% tab_lap "edit" "Editor" %>
-  <% tab_lap "file" "File" %>
+  <% tab_lap "edit" "Редактор" %>
+  <% tab_lap "file" "Файл" %>
 <% if [ -f "${editor_file}.backup" ]; then %>
-  <% tab_lap "back" "Backup" %>
-  <% tab_lap "diff" "Difference" %>
+  <% tab_lap "back" "Бэкап" %>
+  <% tab_lap "diff" "Отличия" %>
 <% fi %>
 </ul>
 
@@ -70,10 +70,10 @@ page_title="Text editor"
     <form action="<%= $SCRIPT_NAME %>" method="post" class="mb-4">
       <% field_hidden "action" "save" %>
       <% field_hidden "editor_file" "$editor_file" %>
-      <% field_textarea "editor_text" "File content" %>
+      <% field_textarea "editor_text" "Содержимое файла" %>
       <p class="boolean"><span class="form-check form-switch">
         <input type="checkbox" id="editor_backup" name="editor_backup" value="true" class="form-check-input" role="switch">
-        <label for="editor_backup" class="form-label form-check-label">Create backup file</label>
+        <label for="editor_backup" class="form-label form-check-label">Создать бэкап файла</label>
       </span></p>
       <% button_submit %>
     </form>
@@ -89,11 +89,11 @@ page_title="Text editor"
       <form action="<%= $SCRIPT_NAME %>" method="post">
         <% field_hidden "action" "restore" %>
         <% field_hidden "editor_file" "$editor_file" %>
-        <% button_submit "Restore" "danger" %>
+        <% button_submit "Восстановить" "danger" %>
       </form>
     </div>
     <div id="diff-tab-pane" role="tabpanel" class="tab-pane fade" aria-labelledby="diff-tab" tabindex="0">
-      <h4>Changes against previous version</h4>
+      <h4>Отличия от предыдущей версии</h4>
 <%
 # it's ugly but shows non-printed characters (^M/^I)
 _n=$(basename $editor_file)
