@@ -2,8 +2,8 @@
 <%in p/common.cgi %>
 <%
 plugin="speaker"
-plugin_name="Play on speaker"
-page_title="Play on speaker"
+plugin_name="Проигрывание на динамике"
+page_title="Проигрывание на динамике"
 params="enabled url file"
 # volume srate codec outputEnabled speakerPin speakerPinInvert
 
@@ -21,7 +21,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
 
   ### Validation
   if [ "true" = "$speaker_enabled" ]; then
-    [ -z "$speaker_url"   ] && flash_append "danger" "URL cannot be empty." && error=11
+    [ -z "$speaker_url"   ] && flash_append "danger" "URL не может быть пустым." && error=11
   fi
 
   if [ -z "$error" ]; then
@@ -33,7 +33,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     mv $tmp_file $config_file
 
     update_caminfo
-    redirect_back "success" "${plugin_name} config updated."
+    redirect_back "success" "${plugin_name} конфигурация обновлена."
   fi
 
   redirect_to $SCRIPT_NAME
@@ -49,15 +49,15 @@ fi
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
     <form action="<%= $SCRIPT_NAME %>" method="post">
-      <% field_switch "speaker_enabled" "Enable playing on speaker" %>
+      <% field_switch "speaker_enabled" "Включить проигрывание на динамике" %>
       <% field_text "speaker_url" "URL" %>
-      <% field_text "speaker_file" "Audio file" "a-law PCM 8000 bps" %>
+      <% field_text "speaker_file" "Аудио файл" "a-law PCM 8000 bps" %>
       <% button_submit %>
     </form>
   </div>
   <div class="col">
     <% ex "cat $config_file" %>
-    <% [ -f "/tmp/webui.log" ] && link_to "Download log file" "dl.cgi" %>
+    <% [ -f "/tmp/webui.log" ] && link_to "Скачать лог-файл" "dl.cgi" %>
   </div>
 </div>
 

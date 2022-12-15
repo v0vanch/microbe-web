@@ -2,8 +2,8 @@
 <%in p/common.cgi %>
 <%
 plugin="ftp"
-plugin_name="Send to FTP"
-page_title="Send to FTP"
+plugin_name="Отправка по FTP"
+page_title="Отправка по FTP"
 params="enabled host username password path port socks5_enabled template"
 
 tmp_file=/tmp/${plugin}.conf
@@ -20,9 +20,9 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
 
   ### Validation
   if [ "true" = "$ftp_enabled" ]; then
-    [ "true" = "$ftp_send2ftp"  ] && [ -z "$ftp_ftphost"   ] && flash_append "danger" "FTP address cannot be empty." && error=11
-    [ "true" = "$ftp_send2tftp" ] && [ -z "$ftp_tftphost"  ] && flash_append "danger" "TFTP address cannot be empty." && error=12
-    [ "true" = "$ftp_save4web"  ] && [ -z "$ftp_localpath" ] && flash_append "danger" "Local path cannot be empty." && error=13
+    [ "true" = "$ftp_send2ftp"  ] && [ -z "$ftp_ftphost"   ] && flash_append "danger" "FTP адрес не может быть пустым." && error=11
+    [ "true" = "$ftp_send2tftp" ] && [ -z "$ftp_tftphost"  ] && flash_append "danger" "TFTP адрес не может быть пустым." && error=12
+    [ "true" = "$ftp_save4web"  ] && [ -z "$ftp_localpath" ] && flash_append "danger" "Локальный путь не может быть пустым." && error=13
   fi
   [ -z "$ftp_template" ] && ftp_template="Screenshot-%Y%m%d-%H%M%S.jpg"
 
@@ -35,7 +35,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     mv $tmp_file $config_file
 
     update_caminfo
-    redirect_back "success" "${plugin_name} config updated."
+    redirect_back "success" "${plugin_name} конфигурация обновлена."
   fi
 
   redirect_to $SCRIPT_NAME
@@ -52,20 +52,20 @@ fi
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
     <form action="<%= $SCRIPT_NAME %>" method="post">
-      <% field_switch "ftp_enabled" "Enable sending to FTP server" %>
-      <% field_text "ftp_host" "FTP host" %>
-      <% field_text "ftp_port" "FTP port" %>
-      <% field_text "ftp_username" "FTP username" %>
-      <% field_password "ftp_password" "FTP password" %>
-      <% field_text "ftp_path" "FTP path" "relative to FTP root directory" %>
-      <% field_text "ftp_template" "File template" "Supports <a href=\"https://man7.org/linux/man-pages/man3/strftime.3.html \" target=\"_blank\">strftime()</a> format." %>
-      <% field_switch "ftp_socks5_enabled" "Use SOCKS5" "<a href=\"network-socks5.cgi\">Configure</a> SOCKS5 access" %>
+      <% field_switch "ftp_enabled" "Включить отправку на FTP сервер" %>
+      <% field_text "ftp_host" "FTP хост" %>
+      <% field_text "ftp_port" "FTP порт" %>
+      <% field_text "ftp_username" "FTP логин" %>
+      <% field_password "ftp_password" "FTP пароль" %>
+      <% field_text "ftp_path" "FTP путь" "относительный к корневой FTP директории" %>
+      <% field_text "ftp_template" "Шаблон файла" "Поддерживает формат <a href=\"https://man7.org/linux/man-pages/man3/strftime.3.html \" target=\"_blank\">strftime()</a>." %>
+      <% field_switch "ftp_socks5_enabled" "Использовать SOCKS5" "<a href=\"network-socks5.cgi\">Настроить</a> SOCKS5 доступ" %>
       <% button_submit %>
     </form>
   </div>
   <div class="col">
     <% ex "cat $config_file" %>
-    <% [ -f "/tmp/webui.log" ] && link_to "Download log file" "dl.cgi" %>
+    <% [ -f "/tmp/webui.log" ] && link_to "Скачать лог-файл" "dl.cgi" %>
   </div>
 </div>
 

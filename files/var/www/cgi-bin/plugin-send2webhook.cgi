@@ -2,8 +2,8 @@
 <%in p/common.cgi %>
 <%
 plugin="webhook"
-plugin_name="Send to Webhook"
-page_title="Send to Webhook"
+plugin_name="Отправка на Webhook"
+page_title="Отправка на Webhook"
 params="enabled url socks5_enabled"
 
 tmp_file=/tmp/${plugin}.conf
@@ -20,7 +20,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
 
   ### Validation
   if [ "true" = "$webhook_enabled" ]; then
-    [ -z "$webhook_url"   ] && flash_append "danger" "Webhook URL cannot be empty." && error=11
+    [ -z "$webhook_url"   ] && flash_append "danger" "URL веб-хука не может быть пустым." && error=11
   fi
 
   if [ -z "$error" ]; then
@@ -32,7 +32,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     mv $tmp_file $config_file
 
     update_caminfo
-    redirect_back "success" "${plugin_name} config updated."
+    redirect_back "success" "${plugin_name} конфигурация обновлена."
   fi
 
   redirect_to $SCRIPT_NAME
@@ -45,15 +45,15 @@ fi
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
     <form action="<%= $SCRIPT_NAME %>" method="post">
-      <% field_switch "webhook_enabled" "Enable sending to webhook" %>
-      <% field_text "webhook_url" "Webhook URL" %>
-      <% field_switch "webhook_socks5_enabled" "Use SOCKS5" "<a href=\"network-socks5.cgi\">Configure</a> SOCKS5 access" %>
+      <% field_switch "webhook_enabled" "Включить отправку на веб-хук" %>
+      <% field_text "webhook_url" "URL веб-хука" %>
+      <% field_switch "webhook_socks5_enabled" "Использовать SOCKS5" "<a href=\"network-socks5.cgi\">Настроить</a> SOCKS5 доступ" %>
       <% button_submit %>
     </form>
   </div>
   <div class="col">
     <% ex "cat $config_file" %>
-    <% [ -f "/tmp/webui.log" ] && link_to "Download log file" "dl.cgi" %>
+    <% [ -f "/tmp/webui.log" ] && link_to "Скачать лог-файл" "dl.cgi" %>
   </div>
 </div>
 

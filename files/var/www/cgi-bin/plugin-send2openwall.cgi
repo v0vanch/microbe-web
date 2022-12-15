@@ -2,8 +2,8 @@
 <%in p/common.cgi %>
 <%
 plugin="openwall"
-plugin_name="Send to OpenWall"
-page_title="Send to OpenWall"
+plugin_name="Отправка на OpenWall"
+page_title="Отправка на OpenWall"
 params="enabled interval use_heif socks5_enabled"
 
 tmp_file=/tmp/${plugin}.conf
@@ -20,7 +20,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
 
   ### Validation
   if [ "true" = "$openwall_enabled" ]; then
-    [ "$openwall_interval" -lt "15" ] && flash_append "danger" "Keep interval at 15 minutes or longer." && error=11
+    [ "$openwall_interval" -lt "15" ] && flash_append "danger" "Установите интервал 15 минут или больше." && error=11
   fi
 
   if [ -z "$error" ]; then
@@ -39,7 +39,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     mv /tmp/crontabs.tmp /etc/crontabs/root
 
     update_caminfo
-    redirect_back "success" "${plugin_name} config updated."
+    redirect_back "success" "${plugin_name} конфигурация обновлена."
   fi
 
   redirect_to $SCRIPT_NAME
@@ -53,26 +53,26 @@ fi
 <%in p/header.cgi %>
 
 <div class="alert alert-info">
-<p>This plugin allows you to share images from your OpenIPC camera on the <a href="https://openipc.org/open-wall">Open Wall</a>
- page of our website. But that's not all. It's a metrics agent with meaning. The images you share will allow us to determine
- the quality of images from different cameras. We also collect your MAC address, SoC model, sensor model, flash chip size,
- firmware version, and camera uptime to do this.</p>
+<p>Этот плагин позволяет вам делиться изображениями с OpenIPC камеры на странице сайта <a href="https://openipc.org/open-wall">Open Wall</a>.
+ Но это не все. Это сборщик полезных метрик. Изображения, которыми вы делитесь, позволяют нам определять
+ качество изображений на различных камерах. Чтобы это делать, мы собираем следующую информацию: MAC адрес, модель SoC, модель сенсора, размер чипа памяти,
+ версию прошивки и ап-тайм камеры.</p>
 </div>
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
     <form action="<%= $SCRIPT_NAME %>" method="post">
-      <% field_switch "openwall_enabled" "Enable sending to OpenWall" %>
-      <% field_select "openwall_interval" "Interval, minutes" "15,30,60" "Time between submissions. 15 minutes or longer." %>
-      <% field_switch "openwall_use_heif" "Use HEIF format." "Requires H.265 codec on Video0" %>
-      <% field_switch "openwall_socks5_enabled" "Use SOCKS5" "<a href=\"network-socks5.cgi\">Configure</a> SOCKS5 access" %>
+      <% field_switch "openwall_enabled" "Включить отправку на OpenWall" %>
+      <% field_select "openwall_interval" "Интервал, минуты" "15,30,60" "Время между отправлениями. 15 минут или больше." %>
+      <% field_switch "openwall_use_heif" "Использовать HEIF формат." "Требуется H.265 кодек на Video0" %>
+      <% field_switch "openwall_socks5_enabled" "Использовать SOCKS5" "<a href=\"network-socks5.cgi\">Настроить</a> SOCKS5 доступ" %>
       <% button_submit %>
     </form>
   </div>
   <div class="col">
     <% ex "cat $config_file" %>
     <% ex "grep send2openwall /etc/crontabs/root" %>
-    <% [ -f "/tmp/webui.log" ] && link_to "Download log file" "dl.cgi" %>
+    <% [ -f "/tmp/webui.log" ] && link_to "Скачать лог-файл" "dl.cgi" %>
   </div>
 </div>
 

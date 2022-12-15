@@ -2,11 +2,11 @@
 <%in p/common.cgi %>
 <%
 plugin="mqtt"
-plugin_name="MQTT client"
-page_title="MQTT client"
+plugin_name="MQTT клиент"
+page_title="MQTT клиент"
 params="enabled host port client_id username password topic message send_snap snap_topic use_ssl"
 
-[ ! -f /usr/bin/mosquitto_pub ] && redirect_to "/" "danger" "MQTT client is not a part of your firmware."
+[ ! -f /usr/bin/mosquitto_pub ] && redirect_to "/" "danger" "MQTT клиент не является частью вашей прошивки."
 
 tmp_file=/tmp/${plugin}.conf
 
@@ -22,28 +22,28 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
 
   ### Validation
   if [ "true" = "$mqtt_enabled" ]; then
-    [ -z "$mqtt_host"      ] && flash_append "danger" "MQTT broker host cannot be empty." && error=11
-    [ -z "$mqtt_port"      ] && flash_append "danger" "MQTT port cannot be empty." && error=12
-#    [ -z "$mqtt_username"  ] && flash_append "danger" "MQTT username cannot be empty." && error=13
-#    [ -z "$mqtt_password"  ] && flash_append "danger" "MQTT password cannot be empty." && error=14
-    [ -z "$mqtt_topic"     ] && flash_append "danger" "MQTT topic cannot be empty." && error=15
-    [ -z "$mqtt_message"   ] && flash_append "danger" "MQTT message cannot be empty." && error=16
+    [ -z "$mqtt_host"      ] && flash_append "danger" "Хост MQTT брокера не может быть пустым." && error=11
+    [ -z "$mqtt_port"      ] && flash_append "danger" "MQTT порт не может быть пустым." && error=12
+#    [ -z "$mqtt_username"  ] && flash_append "danger" "MQTT логин не может быть пустым." && error=13
+#    [ -z "$mqtt_password"  ] && flash_append "danger" "MQTT пароль не может быть пустым." && error=14
+    [ -z "$mqtt_topic"     ] && flash_append "danger" "MQTT топик (канал) не может быть пустым." && error=15
+    [ -z "$mqtt_message"   ] && flash_append "danger" "MQTT сообщение не может быть пустым." && error=16
   fi
 
   if [ "${mqtt_topic:0:1}" = "/" ] || [ "${mqtt_snap_topic:0:1}" = "/" ]; then
-    flash_append "danger" "MQTT topic should not start with a slash." && error=17
+    flash_append "danger" "MQTT топик (канал) на должен начинаться со слэша." && error=17
   fi
 
   if [ "$mqtt_topic" != "${mqtt_topic// /}" ] || [ "$mqtt_snap_topic" != "${mqtt_snap_topic// /}" ]; then
-    flash_append "danger" "MQTT topic should not contain spaces." && error=18
+    flash_append "danger" "MQTT топик (канал) не должен содержать пробелы." && error=18
   fi
 
   if [ -n "$(echo $mqtt_topic | sed -r -n /[^\x00-\xFF/]/p)" ] || [ -n "$(echo $mqtt_snap_topic | sed -r -n /[^\x00-\xFF/]/p)" ]; then
-    flash_append "danger" "MQTT topic should not include non-ASCII characters." && error=19
+    flash_append "danger" "MQTT топик (канал) не должен включать не ASCII символы." && error=19
   fi
 
   if [ "true" = "$mqtt_send_snap" ] && [ -z "$mqtt_snap_topic" ]; then
-    flash_append "danger" "MQTT topic for snapshot should not be empty." && error=20
+    flash_append "danger" "MQTT топик (канал) для снимка не должен быть пустым." && error=20
   fi
 
   if [ -z "$error" ]; then
@@ -55,7 +55,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     mv $tmp_file $config_file
 
     update_caminfo
-    redirect_back "success" "${plugin_name} config updated."
+    redirect_back "success" "${plugin_name} конфигурация обновлена."
   fi
 
   redirect_to $SCRIPT_NAME
@@ -74,24 +74,24 @@ fi
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
     <form action="<%= $SCRIPT_NAME %>" method="post">
-      <% field_switch "mqtt_enabled" "Enable MQTT client" %>
-      <% field_text "mqtt_host" "MQTT broker host" %>
-      <% field_switch "mqtt_use_ssl" "Use SSL" %>
-      <% field_text "mqtt_port" "MQTT broker port" %>
-      <% field_text "mqtt_client_id" "MQTT client ID" %>
-      <% field_text "mqtt_username" "MQTT broker username" %>
-      <% field_password "mqtt_password" "MQTT broker password" %>
-      <% field_text "mqtt_topic" "MQTT topic" %>
-      <% field_text "mqtt_message" "MQTT message" "Supports <a href=\"https://man7.org/linux/man-pages/man3/strftime.3.html \" target=\"_blank\">strftime()</a> format." %>
-      <% field_switch "mqtt_send_snap" "Send a snapshot" %>
-      <% field_text "mqtt_snap_topic" "MQTT topic to send the snapshot to" %>
-      <% field_switch "mqtt_socks5_enabled" "Use SOCKS5" "<a href=\"network-socks5.cgi\">Configure</a> SOCKS5 access" %>
+      <% field_switch "mqtt_enabled" "Включить MQTT клиент" %>
+      <% field_text "mqtt_host" "Хост MQTT брокера" %>
+      <% field_switch "mqtt_use_ssl" "Использовать SSL" %>
+      <% field_text "mqtt_port" "Порт MQTT брокера" %>
+      <% field_text "mqtt_client_id" "ID MQTT клиента" %>
+      <% field_text "mqtt_username" "Логин MQTT брокера" %>
+      <% field_password "mqtt_password" "Пароль MQTT брокера" %>
+      <% field_text "mqtt_topic" "MQTT топик (канал)" %>
+      <% field_text "mqtt_message" "MQTT сообщение" "Поддерживает формат <a href=\"https://man7.org/linux/man-pages/man3/strftime.3.html \" target=\"_blank\">strftime()</a>." %>
+      <% field_switch "mqtt_send_snap" "Отправить снимок" %>
+      <% field_text "mqtt_snap_topic" "MQTT топик (канал) для отправки снимка" %>
+      <% field_switch "mqtt_socks5_enabled" "Использовать SOCKS5" "<a href=\"network-socks5.cgi\">НАстроить</a> SOCKS5 доступ" %>
       <% button_submit %>
     </form>
   </div>
   <div class="col">
     <% ex "cat $config_file" %>
-    <% [ -f "/tmp/webui.log" ] && link_to "Download log file" "dl.cgi" %>
+    <% [ -f "/tmp/webui.log" ] && link_to "Скачать лог-файл" "dl.cgi" %>
   </div>
 </div>
 

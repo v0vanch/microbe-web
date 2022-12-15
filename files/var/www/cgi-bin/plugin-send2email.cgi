@@ -2,8 +2,8 @@
 <%in p/common.cgi %>
 <%
 plugin="email"
-plugin_name="Send to email"
-page_title="Send to email"
+plugin_name="Отправка по Email"
+page_title="Отправка по Email"
 params="enabled attach_snapshot from_name from_address to_name to_address subject body smtp_host smtp_port smtp_username smtp_password smtp_use_ssl socks5_enabled"
 
 tmp_file=/tmp/${plugin}.conf
@@ -23,11 +23,11 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
 
   ### Validation
   if [ "true" = "$email_enabled" ]; then
-    [ -z "$email_smtp_host"    ] && flash_append "danger" "SMTP host cannot be empty." && error=11
-    [ -z "$email_from_address" ] && flash_append "danger" "Sender email address cannot be empty." && error=12
-    [ -z "$email_from_name"    ] && flash_append "danger" "Sender name cannot be empty." && error=13
-    [ -z "$email_to_address"   ] && flash_append "danger" "Recipient email address cannot be empty." && error=14
-    [ -z "$email_to_name"      ] && flash_append "danger" "Recipient name cannot be empty." && error=15
+    [ -z "$email_smtp_host"    ] && flash_append "danger" "SMTP хост не может быть пустым." && error=11
+    [ -z "$email_from_address" ] && flash_append "danger" "Email адрес отправителя не может быть пустым." && error=12
+    [ -z "$email_from_name"    ] && flash_append "danger" "Имя отправителя не может быть пустым." && error=13
+    [ -z "$email_to_address"   ] && flash_append "danger" "Email адрес получателя не может быть пустым." && error=14
+    [ -z "$email_to_name"      ] && flash_append "danger" "Имя получателя не может быть пустым." && error=15
   fi
 
   if [ -z "$error" ]; then
@@ -39,7 +39,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     mv $tmp_file $config_file
 
     update_caminfo
-    redirect_back "success" "${plugin_name} config updated."
+    redirect_back "success" "${plugin_name} конфигурация обновлена."
   fi
 
   redirect_to $SCRIPT_NAME
@@ -49,9 +49,9 @@ else
   # Default values
   [ -z "$email_attach_snapshot" ] && email_attach_snapshot="true"
   [ -z "$email_smtp_port" ] && email_smtp_port="25"
-  [ -z "$email_from_name" ] && email_from_name="Camera ${network_hostname}"
-  [ -z "$email_to_name" ] && email_to_name="Camera admin"
-#  [ -z "$email_subject" ] && email_subject="Snapshot from ${network_hostname}"
+  [ -z "$email_from_name" ] && email_from_name="Камера ${network_hostname}"
+  [ -z "$email_to_name" ] && email_to_name="Администратор камеры"
+#  [ -z "$email_subject" ] && email_subject="Снимок с камеры ${network_hostname}"
 fi
 %>
 <%in p/header.cgi %>
@@ -59,26 +59,26 @@ fi
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
     <form action="<%= $SCRIPT_NAME %>" method="post">
-      <% field_switch "email_enabled" "Enable sending to email" %>
-      <% field_text "email_smtp_host" "SMTP host" %>
-      <% field_text "email_smtp_port" "SMTP port" %>
-      <% field_switch "email_smtp_use_ssl" "Use TLS/SSL" %>
-      <% field_text "email_smtp_username" "SMTP username" %>
-      <% field_password "email_smtp_password" "SMTP password" %>
-      <% field_text "email_from_name" "Sender's name" %>
-      <% field_text "email_from_address" "Sender's address" "Use an email address where bounce reports can be sent to." %>
-      <% field_text "email_to_name" "Recipient's name" %>
-      <% field_text "email_to_address" "Recipient's address" %>
-      <% field_text "email_subject" "Email subject" %>
-      <% field_textarea "email_body" "Email text" "Line breaks will be replaced with whitespace." %>
-      <% field_switch "email_attach_snapshot" "Attach snapshot" %>
-      <% # field_switch "email_socks5_enabled" "Use SOCKS5" "<a href=\"network-socks5.cgi\">Configure</a> SOCKS5 access" %>
+      <% field_switch "email_enabled" "Включить отправку по Email" %>
+      <% field_text "email_smtp_host" "SMTP хост" %>
+      <% field_text "email_smtp_port" "SMTP порт" %>
+      <% field_switch "email_smtp_use_ssl" "Использовать TLS/SSL" %>
+      <% field_text "email_smtp_username" "SMTP логин" %>
+      <% field_password "email_smtp_password" "SMTP пароль" %>
+      <% field_text "email_from_name" "Имя отправителя" %>
+      <% field_text "email_from_address" "Адрес отправителя" "Use an email address where bounce reports can be sent to." %>
+      <% field_text "email_to_name" "Имя получателя" %>
+      <% field_text "email_to_address" "Адрес получателя" %>
+      <% field_text "email_subject" "Тема письма" %>
+      <% field_textarea "email_body" "Текст письма" "Переносы строки будут заменены пробелами." %>
+      <% field_switch "email_attach_snapshot" "Прикрепить снимок" %>
+      <% # field_switch "email_socks5_enabled" "Использовать SOCKS5" "<a href=\"network-socks5.cgi\">Настроить</a> SOCKS5 доступ" %>
       <% button_submit %>
     </form>
   </div>
   <div class="col">
     <% ex "cat $config_file" %>
-    <% [ -f "/tmp/webui.log" ] && link_to "Download log file" "dl.cgi" %>
+    <% [ -f "/tmp/webui.log" ] && link_to "Скачать лог-файл" "dl.cgi" %>
   </div>
 </div>
 

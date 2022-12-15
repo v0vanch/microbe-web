@@ -6,7 +6,7 @@ plugin_name="ZeroTier"
 page_title="ZeroTier"
 params="enabled nwid"
 
-[ ! -f /usr/sbin/zerotier-cli ] && redirect_to "/" "danger" "ZerotierOne client is not a part of your firmware."
+[ ! -f /usr/sbin/zerotier-cli ] && redirect_to "/" "danger" "ZerotierOne клиент не является частью вашей прошивки."
 
 tmp_file=/tmp/${plugin}.conf
 
@@ -18,11 +18,11 @@ zt_cli_bin=/usr/sbin/zerotier-cli
 zt_one_bin=/usr/sbin/zerotier-one
 
 [ "ultimate" != "$fw_variant" ] &&
-  redirect_to "/" "danger" "ZeroTier plugin is not supported on OpenIPC ${fw_variant}."
+  redirect_to "/" "danger" "ZeroTier плагин не поддерживается на OpenIPC ${fw_variant}."
 [ ! -f "$zt_one_bin" ] &&
-  redirect_to "/" "danger" "${zt_one_bin} file not found."
+  redirect_to "/" "danger" "${zt_one_bin} файл не найден."
 [ ! -f "$service_file" ] &&
-  redirect_to "/" "danger" "${service_file} file not found."
+  redirect_to "/" "danger" "${service_file} файл не найден."
 
 include $config_file
 [ -n "$zerotier_nwid" ] && zt_network_config_file="/var/lib/zerotier-one/networks.d/${zerotier_nwid}.conf"
@@ -39,9 +39,9 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     ### Validation
     if [ "true" = "$zerotier_enabled" ]; then
       [ -z "$zerotier_nwid" ] &&
-        flash_append "danger" "ZeroTier Network ID cannot be empty." && error=1
+        flash_append "danger" "ZeroTier Network ID не можеть быть пустым." && error=1
       [ "${#zerotier_nwid}" -ne "16" ] &&
-        flash_append "danger" "ZeroTier Network ID should be 16 digits long." && error=2
+        flash_append "danger" "ZeroTier Network ID должен состоять из 16 цифр." && error=2
     fi
 
     if [ -z "$error" ]; then
@@ -53,16 +53,16 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
       mv $tmp_file $config_file
 
       update_caminfo
-      redirect_back "success" "${plugin_name} config updated."
+      redirect_back "success" "${plugin_name} конфигурация обновлена."
     fi
     ;;
   start|open)
     $service_file start >&2
-    redirect_back # "success" "Sevice is up"
+    redirect_back # "success" "Сервис запущен"
     ;;
   stop|close)
     $service_file stop >&2
-    redirect_back # "danger" "Service is down"
+    redirect_back # "danger" "Сервис остановлен"
     ;;
   join)
     $zt_cli_bin join $zerotier_nwid >&2
@@ -74,7 +74,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     redirect_back
     ;;
   *)
-    redirect_back "danger" "Unknown action $POST_action!"
+    redirect_back "danger" "Неизвестное действие $POST_action!"
   esac
 fi
 %>
@@ -82,12 +82,12 @@ fi
 
 <div class="row g-4 mb-4">
   <div class="col col-lg-4">
-    <h3>Settings</h3>
+    <h3>Настройки</h3>
 
     <form action="<%= $SCRIPT_NAME %>" method="post">
       <% field_hidden "action" "create" %>
-      <% field_switch "zerotier_enabled" "Enable ZeroTier network on restart" %>
-      <% field_text "zerotier_nwid" "ZeroTier Network ID" "Don't have it? Get one at <a href=\"https://my.zerotier.com/\">my.zerotier.com</a>" %>
+      <% field_switch "zerotier_enabled" "Включить ZeroTier сеть при перезагрузке" %>
+      <% field_text "zerotier_nwid" "ZeroTier ID Сети" "Нет ID сети? Получите на <a href=\"https://my.zerotier.com/\">my.zerotier.com</a>" %>
       <% button_submit %>
     </form>
 
@@ -95,20 +95,20 @@ fi
 
     <% zerotier-cli info >/dev/null; if [ $? -eq 0 ]; then %>
       <div class="alert alert-success">
-        <h5>ZeroTier Tunnel is open</h5>
+        <h5>ZeroTier туннель открыт</h5>
 
         <% if [ -f "$zt_network_config_file" ]; then %>
           <% zt_id="$(grep ^nwid= ${zt_network_config_file} | cut -d= -f2)" %>
           <% zt_name="$(grep ^n= ${zt_network_config_file} | cut -d= -f2)" %>
           <% if [ -n "$zt_id" ] && [ -n "$zt_name" ]; then %>
-            <p>Use the following credentials to set up remote access via active virtual tunnel:</p>
+            <p>ИСпользуйте следующие учетные данные, чтобы настроить удаленный доступ через активный виртуальный туннель:</p>
             <dl>
               <dt>NWID: <%= $zt_id %></dd>
               <dt>Name: <%= $zt_name %></dd>
             </dl>
             <form action="<%= $SCRIPT_NAME %>" method="post">
               <% field_hidden "action" "leave" %>
-              <% button_submit "Leave network" "danger" %>
+              <% button_submit "Покинуть сеть" "danger" %>
             </form>
           <% fi %>
         <% else %>
@@ -116,13 +116,13 @@ fi
             <div class="col">
               <form action="<%= $SCRIPT_NAME %>" method="post">
                 <% field_hidden "action" "join" %>
-                <% button_submit "Join network" %>
+                <% button_submit "Присоединиться к сети" %>
               </form>
             </div>
             <div class="col">
               <form action="<%= $SCRIPT_NAME %>" method="post">
                 <% field_hidden "action" "stop" %>
-                <% button_submit "Close tunnel" "danger" %>
+                <% button_submit "Закрыть туннель" "danger" %>
               </form>
             </div>
           </div>
@@ -130,17 +130,17 @@ fi
       </div>
     <% else %>
       <div class="alert alert-warning">
-        <h4>ZeroTier Tunnel is closed</h4>
+        <h4>ZeroTier туннель закрыт</h4>
         <form action="<%= $SCRIPT_NAME %>" method="post">
           <% field_hidden "action" "start" %>
-          <% button_submit "Open tunnel" %>
+          <% button_submit "Открыть туннель" %>
         </form>
       </div>
     <% fi %>
   </div>
 
   <div class="col col-lg-8">
-    <h3>Configuration files</h3>
+    <h3>Файлы конфигурации</h3>
 <%
 [ -f "$service_file" ] && ex "cat $service_file"
 [ -f "$config_file" ] && ex "cat $config_file"

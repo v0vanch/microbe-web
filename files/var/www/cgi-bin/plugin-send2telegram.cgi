@@ -2,8 +2,8 @@
 <%in p/common.cgi %>
 <%
 plugin="telegram"
-plugin_name="Send to Telegram"
-page_title="Send to Telegram"
+plugin_name="Отправка через Telegram"
+page_title="Отправка через Telegram"
 params="enabled token as_attachment as_photo channel socks5_enabled"
 
 tmp_file=/tmp/${plugin}.conf
@@ -20,8 +20,8 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
 
   ### Validation
   if [ "true" = "$telegram_enabled" ]; then
-    [ -z "$telegram_token"   ] && flash_append "danger" "Telegram token cannot be empty." && error=11
-    [ -z "$telegram_channel" ] && flash_append "danger" "Telegram channel cannot be empty." && error=12
+    [ -z "$telegram_token"   ] && flash_append "danger" "Telegram токен не может быть пустым." && error=11
+    [ -z "$telegram_channel" ] && flash_append "danger" "Telegram канал не может быть пустым." && error=12
   fi
 
   if [ -z "$error" ]; then
@@ -33,7 +33,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     mv $tmp_file $config_file
 
     update_caminfo
-    redirect_back "success" "${plugin_name} config updated."
+    redirect_back "success" "${plugin_name} конфигурация обновлена."
   fi
 
   redirect_to $SCRIPT_NAME
@@ -46,31 +46,31 @@ fi
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
     <form action="<%= $SCRIPT_NAME %>" method="post">
-      <% field_switch "telegram_enabled" "Enable sending to Telegram" %>
-      <% field_text "telegram_token" "Token" "Your Telegram Bot authentication token." %>
-      <% field_text "telegram_channel" "Chat ID" "Numeric ID of the channel you want the bot to post images to." %>
-      <% field_switch "telegram_as_photo" "Send as photo." %>
-      <% field_switch "telegram_as_attachment" "Send as attachment." %>
-      <% field_switch "telegram_socks5_enabled" "Use SOCKS5" "<a href=\"network-socks5.cgi\">Configure</a> SOCKS5 access" %>
+      <% field_switch "telegram_enabled" "Включить отправку через Telegram" %>
+      <% field_text "telegram_token" "Токен" "Аутентификационный токен вашего Telegram бота." %>
+      <% field_text "telegram_channel" "ID чата" "Числовой ID канала, в который боту будет отправлять изображения." %>
+      <% field_switch "telegram_as_photo" "Отправлять как фото." %>
+      <% field_switch "telegram_as_attachment" "Отправлять как вложение." %>
+      <% field_switch "telegram_socks5_enabled" "Использовать SOCKS5" "<a href=\"network-socks5.cgi\">Настроить</a> SOCKS5 доступ" %>
       <% button_submit %>
     </form>
   </div>
   <div class="col">
     <% ex "cat $config_file" %>
-    <% [ -f "/tmp/webui.log" ] && link_to "Download log file" "dl.cgi" %>
+    <% [ -f "/tmp/webui.log" ] && link_to "Скачать лог-файл" "dl.cgi" %>
   </div>
 </div>
 
 <% if [ -z "$telegram_token" ]; then %>
 <div class="alert alert-info mt-4">
-  <h5>To create a channel for your Telegram bot:</h5>
+  <h5>Чтобы создать Telegram бота:</h5>
   <ol>
-    <li>Start a chat with <a href=\"https://t.me/BotFather\">@BotFather</a></li>
-    <li>Enter <code>/start</code> to start a session.</li>
-    <li>Enter <code>/newbot</code> to create a new bot.</li>
-    <li>Give your bot channel a name, e.g. <i>cool_cam_bot</i>.</li>
-    <li>Give your bot a username, e.g. <i>CoolCamBot</i>.</li>
-    <li>Copy the token assigned to your new bot by the BotFather, and paste it to the form.</li>
+    <li>Начните чат с <a href=\"https://t.me/BotFather\">@BotFather</a></li>
+    <li>Введите <code>/start</code>, чтобы начать сессию.</li>
+    <li>Введите <code>/newbot</code>, чтобы создать нового бота.</li>
+    <li>Задайте логин для бота, например, <i>cool_cam_bot</i>.</li>
+    <li>Задайте никнейм для бота, например, <i>CoolCamBot</i>.</li>
+    <li>Скопируйте токен выданный BotFather, и вставьте его в эту форму.</li>
   </ol>
 </div>
 <% fi %>

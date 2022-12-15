@@ -2,11 +2,11 @@
 <%in p/common.cgi %>
 <%
 plugin="motion"
-plugin_name="Motion guard"
-page_title="Motion guard"
+plugin_name="Отслеживание движения"
+page_title="Отслеживание движения"
 params="enabled sensitivity send2email send2ftp send2telegram send2webhook send2yadisk playonspeaker throttle"
 
-[ -n "$(echo "$mj_hide_motionDetect" | sed -n "/\b${soc_family}\b/p")" ] && redirect_to "/" "danger" "Motion detection is not supported on your camera."
+[ -n "$(echo "$mj_hide_motionDetect" | sed -n "/\b${soc_family}\b/p")" ] && redirect_to "/" "danger" "Определение движения не поддерживается на этой камере."
 
 service_file=/etc/init.d/S92motion
 tmp_file=/tmp/${plugin}
@@ -29,7 +29,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     [ "false" = "$motion_send2webhook" ] && \
     [ "false" = "$motion_send2yadisk" ] && \
     [ "false" = "$motion_playonspeaker" ] && \
-    flash_append "danger" "You need to select at least one method of notification" && error=1
+    flash_append "danger" "Необходимо выбрать по крайней мере один вариант оповещения" && error=1
   fi
 
   if [ -z "$error" ]; then
@@ -73,15 +73,15 @@ fi
 <div class="row g-4 mb-4">
   <div class="col col-lg-4">
     <form action="<%= $SCRIPT_NAME %>" method="post">
-      <% field_switch "motion_enabled" "Enable motion guard" %>
-      <% field_range "motion_sensitivity" "Sensitivity" "1,50,1" "1 - minimal sensitivity, 50 - maximum sensitivity" %>
-      <% field_range "motion_throttle" "Delay between notifications, sec." "1,30,1" %>
-      <% field_checkbox "motion_send2email" "Send to email" "<a href=\"plugin-send2email.cgi\">Configure sending to email</a>" %>
-      <% field_checkbox "motion_send2ftp" "Upload to FTP" "<a href=\"plugin-send2ftp.cgi\">Configure uploading to FTP</a>" %>
-      <% field_checkbox "motion_send2telegram" "Send to Telegram" "<a href=\"plugin-send2telegram.cgi\">Configure sending to Telegram</a>" %>
-      <% field_checkbox "motion_send2webhook" "Send to webhook" "<a href=\"plugin-send2webhook.cgi\">Configure sending to a webhook</a>" %>
-      <% field_checkbox "motion_send2yadisk" "Upload to Yandex Disk" "<a href=\"plugin-send2yadisk.cgi\">Configure sending to Yandex Disk</a>" %>
-      <% field_checkbox "motion_playonspeaker" "Play sound file on speaker" "<a href=\"plugin-playonspeaker.cgi\">Configure playing on speaker</a>" %>
+      <% field_switch "motion_enabled" "Включить определение движения" %>
+      <% field_range "motion_sensitivity" "Чувствительность" "1,50,1" "1 - минимальная чувствительность, 50 - максимальная чувствительность" %>
+      <% field_range "motion_throttle" "Задержка между уведомлениями, сек." "1,30,1" %>
+      <% field_checkbox "motion_send2email" "Отправить по email" "<a href=\"plugin-send2email.cgi\">Настроить отправку по email</a>" %>
+      <% field_checkbox "motion_send2ftp" "Отправить по FTP" "<a href=\"plugin-send2ftp.cgi\">Настроить отправку по FTP</a>" %>
+      <% field_checkbox "motion_send2telegram" "Отправить через Telegram" "<a href=\"plugin-send2telegram.cgi\">Настроить отправку через Telegram</a>" %>
+      <% field_checkbox "motion_send2webhook" "Отправить на веб-хук" "<a href=\"plugin-send2webhook.cgi\">Настроить отправку на веб-хук</a>" %>
+      <% field_checkbox "motion_send2yadisk" "Отправить на Яндекс Диск" "<a href=\"plugin-send2yadisk.cgi\">Настроить отправку на Яндекс Диск</a>" %>
+      <% field_checkbox "motion_playonspeaker" "Проиграть звуковой файл на динамике" "<a href=\"plugin-playonspeaker.cgi\">Настроить проигрывание звукового файла на динамике</a>" %>
       <% button_submit %>
     </form>
   </div>
