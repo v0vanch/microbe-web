@@ -21,7 +21,7 @@ Pragma: no-cache
   <nav class="navbar bg-white shadow-sm navbar-expand-lg mb-2">
     <div class="container">
       <a class="navbar-brand" href="status.cgi"><img alt="Image: OpenIPC logo" height="32" src="/a/logo.svg">
-        <!--<span class="x-small ms-3"><%= $fw_variant %></span></a>-->
+        <!--<span class="x-small ms-3"><%= $fw_variant %></span>--></a>
       <% if [ -n "$soc_temp" ]; then %>
         <span id="soc-temp" class="text-white bg-primary rounded small" title="<%= $tSoCTemp %>"><%= $soc_temp %>°C</span>
       <% fi %>
@@ -33,7 +33,7 @@ Pragma: no-cache
           <li class="nav-item dropdown">
             <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownInformation" role="button">Инфо</a>
             <ul aria-labelledby="dropdownInformation" class="dropdown-menu">
-              <li><a class="dropdown-item" href="status.cgi">Статус</a></li>
+              <li><a class="dropdown-item" href="status.cgi">Статус устройства</a></li>
               <li><a class="dropdown-item" href="info-cron.cgi">Настройки Cron</a></li>
               <li><a class="dropdown-item" href="info-dmesg.cgi">Диагностические сообщения</a></li>
               <li><a class="dropdown-item" href="info-httpd.cgi">HTTPd среда</a></li>
@@ -90,7 +90,7 @@ unset _css; unset _param_domain; unset _line; unset _param_name; unset _paramete
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownTools" role="button">Tools</a>
+            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownTools" role="button">Инструменты</a>
             <ul aria-labelledby="dropdownTools" class="dropdown-menu">
               <li><a class="dropdown-item" href="tools.cgi">Ping & Traceroute</a></li>
               <li><a class="dropdown-item" href="console.cgi">Веб консоль</a></li>
