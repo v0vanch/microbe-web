@@ -14,7 +14,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     file_path="$POST_sensor_driver_file_path"
 
     if [ -z "$file_name" ]; then
-      error="No file found! Did you forget to upload?"
+      error="Файл не найден! Вы не забыли его загрузить?"
     elif [ "$magicnum" != $(xxd -p -l 6 $file) ]; then
       error="File magic number does not match. Did you upload a wrong file?"
     elif [ -f "/usr/lib/sensors/${file_name}" ]; then
@@ -28,7 +28,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     file_name="$POST_sensor_config_file_name"
     file_path="$POST_sensor_config_file_path"
     if [ -z "$file_name" ]; then
-      error="No file found! Did you forget to upload?"
+      error="Файл не найден! Вы не забыли его загрузить?"
     elif [ -n $(grep "\[sensor\]" $file) ]; then
       error="File magic number does not match. Did you upload a wrong file?"
     elif [ -f "/etc/sensors/${file_name}" ]; then

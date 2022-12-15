@@ -2,7 +2,7 @@
 <%in p/common.cgi %>
 <%
 plugin="ntp"
-page_title="Time Synchronization"
+page_title="Синхронизация времени"
 
 config_file="/etc/${plugin}.conf"
 [ ! -f "$config_file" ] && touch $config_file
@@ -11,14 +11,14 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
   case "$POST_action" in
     reset)
       cp /rom/etc/ntp.conf /etc/ntp.conf
-      redirect_back "success" "Configuration reset to firmware defaults."
+      redirect_back "success" "Конфигурация сброшена в исходное состояние."
       ;;
     sync)
       /usr/sbin/ntpd -n -q -N
       if [ $? -eq 0 ]; then
-        redirect_back "success" "Camera time synchronized with NTP server."
+        redirect_back "success" "Время камеры синхронизировано с NTP сервером."
       else
-        redirect_back "danger" "Synchronization failed!"
+        redirect_back "danger" "Синхронизация не удалась!"
       fi
       ;;
     update)
@@ -30,7 +30,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
       done
       unset _i; unset _s
       mv $tmp_file $config_file
-      redirect_back "success" "Configuration updated."
+      redirect_back "success" "Конфигурация обновлена."
       ;;
   esac
 fi
@@ -56,10 +56,10 @@ done; unset _i; unset _x
     <% ex "cat $config_file" %>
   </div>
   <div class="col">
-    <p>Camera time: <% date +"%H:%M %Z" %></p>
+    <p>Время камеры: <% date +"%H:%M %Z" %></p>
     <form action="<%= $SCRIPT_NAME %>" method="post">
       <% field_hidden "action" "sync" %>
-      <% button_submit "Synchronize camera time" "primary" %>
+      <% button_submit "Синхронизировать время на камере" "primary" %>
     </form>
   </div>
 </div>
@@ -67,7 +67,7 @@ done; unset _i; unset _x
 <% if [ "$(diff -q -- "/rom${config_file}" "$config_file")" ]; then %>
   <form action="<%= $SCRIPT_NAME %>" method="post" class="mt-4">
     <% field_hidden "action" "reset" %>
-    <% button_submit "Restore firmware defaults" "danger" %>
+    <% button_submit "Восстановить настройки по умолчанию" "danger" %>
   </form>
 <% fi %>
 

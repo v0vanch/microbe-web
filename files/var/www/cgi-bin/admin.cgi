@@ -16,9 +16,9 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     sanitize "${plugin}_${_p}"
   done; unset _p
 
-  [ -z "$admin_name"  ] && flash_append "danger" "Admin name cannot be empty." && error=1
-  [ -z "$admin_email" ] && flash_append "danger" "Admin email cannot be empty." && error=1
-  # [ -z "$admin_telegram" ] && error="Admin telegram username cannot be empty."
+  [ -z "$admin_name"  ] && flash_append "danger" Имя админа не может быть пустым." && error=1
+  [ -z "$admin_email" ] && flash_append "danger" "Email админа не может быть пустым." && error=1
+  # [ -z "$admin_telegram" ] && error="Telegram никнейм админа не может быть пустым."
 
   # add @ to Telegram username, if missed
   [ -n "$admin_telegram" ] && [ "${admin_telegram:0:1}" != "@" ] && admin_telegram="@$admin_telegram"
@@ -32,7 +32,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     mv $tmp_file $config_file
 
     update_caminfo
-    redirect_back "success" "Admin profile updated."
+    redirect_back "success" "Профиль админа обновлен."
   fi
 else
   include $config_file
@@ -42,12 +42,12 @@ fi
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
-    <h3>Settings</h3>
+    <h3>Настройки</h3>
     <form action="<%= $SCRIPT_NAME %>" method="post">
       <% field_hidden "action" "update" %>
-      <% field_text "admin_name" "Admin's full name" "will be used for sending emails" %>
-      <% field_text "admin_email" "Admin's email address" %>
-      <% field_text "admin_telegram" "Admin's nick on Telegram" %>
+      <% field_text "admin_name" "Полное имя админа" "будет использовано при отправке писем" %>
+      <% field_text "admin_email" "Email адрес админа" %>
+      <% field_text "admin_telegram" "Никнейм админа в Telegram" %>
       <% button_submit %>
     </form>
   </div>

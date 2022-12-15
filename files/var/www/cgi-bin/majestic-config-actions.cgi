@@ -43,10 +43,10 @@ Pragma: no-cache
       file_name="$POST_mj_restore_file_name"
       file_path="$POST_mj_restore_file_path"
       error=""
-      [ -z "$file_name" ] && error="No file found! Did you forget to upload?"
-      [ ! -r "$file" ] && error="Cannot read uploded file!"
-      [ "$(wc -c "$file" | awk '{print $1}')" -gt "$maxsize" ] && error="Uploded file is too large! $(wc -c $file | awk '{print $1}') > ${maxsize}."
-      #[ "$magicnum" -ne "$(xxd -p -l 10 $file)" ] && error="File magic number does not match. Did you upload a wrong file? $(xxd -p -l 10 $file) != $magicnum"
+      [ -z "$file_name" ] && error="Файл не найден! Вы не забыли его загрузить?"
+      [ ! -r "$file" ] && error="Не получилось прочитать загруженный файл!"
+      [ "$(wc -c "$file" | awk '{print $1}')" -gt "$maxsize" ] && error="Загруженный файл слишком большой! $(wc -c $file | awk '{print $1}') > ${maxsize}."
+      #[ "$magicnum" -ne "$(xxd -p -l 10 $file)" ] && error="Магические числа файла не совпадают. Вы загружаете корректный файл? $(xxd -p -l 10 $file) != $magicnum"
       if [ -z "$error" ]; then
         # yaml-cli -i $POST_upfile -o /tmp/majestic.yaml # FIXME: sanitize
         mv $file_path /etc/majestic.yaml
@@ -57,47 +57,47 @@ Pragma: no-cache
 fi
 %>
 
-<% page_title="Majestic Maintenance" %>
+<% page_title="Обслуживание Majestic" %>
 <%in p/header.cgi %>
 
 <div class="row row-cols-1 row-cols-lg-3 g-4 mb-4">
   <div class="col">
-    <h3>Backup config</h3>
-    <p>Download recent majestic.yaml to preserve changes you made to the default configuration.</p>
+    <h3>Бэкап конфигурации</h3>
+    <p>Скачайте файл majestic.yaml, чтобы сохранить изменения в конфигурации Majestic.</p>
     <form action="<%= $SCRIPT_NAME %>" method="post">
       <% field_hidden "action" "backup" %>
-      <% button_submit "Download config" %>
+      <% button_submit "Скачать конфигурацию" %>
     </form>
   </div>
   <div class="col">
-    <h3>Restore config</h3>
-    <p>Restore custom Majestic configuration from a saved copy of majestic.yaml file.</p>
+    <h3>Восстановление конфигурации</h3>
+    <p>Восстановите конфигурацию Majestic из скачанного ранее файла majestic.yaml.</p>
     <form action="<%= $SCRIPT_NAME %>" method="post" enctype="multipart/form-data">
       <% field_hidden "action" "restore" %>
-      <% field_file "mj_restore_file" "Backup file" "majestic.yaml" %>
-      <% button_submit "Upload config" "warning" %>
+      <% field_file "mj_restore_file" "Файл бэкапа" "majestic.yaml" %>
+      <% button_submit "Загрузить конфигурацию" "warning" %>
     </form>
   </div>
   <div class="col">
-    <h3>Review difference</h3>
-    <p>Compare recent majestic.yaml with the one supplied with the firmware.</p>
-    <a class="btn btn-primary" href="majestic-config-compare.cgi">Review changes</a>
+    <h3>Просмотр отличий</h3>
+    <p>Сравните текущий файл majestic.yaml с тем, что поставляется с прошивкой.</p>
+    <a class="btn btn-primary" href="majestic-config-compare.cgi">Просмотреть отличия</a>
   </div>
   <div class="col">
-    <h3>Export as patch</h3>
-    <p>Export changes made to majestic.yaml in a form of a patch file.</p>
+    <h3>Экспортировать как патч</h3>
+    <p>Экспортируйте измнения в файле majestic.yaml в форме файла патча.</p>
     <form action="<%= $SCRIPT_NAME %>" method="post">
       <% field_hidden "action" "patch" %>
-      <% button_submit "Download patch file" %>
+      <% button_submit "Скачать патч" %>
     </form>
   </div>
   <div class="col">
-    <h3>Reset</h3>
+    <h3>Сброс</h3>
     <% if [ "$(diff -q $config_file_fw $config_file)" ]; then %>
-      <p>Reset Majestic configuration to its original state, as supplied with the firmware.</p>
+      <p>Сбросьте изменения конфигурации Majestic в исходное состояние.</p>
       <% button_mj_reset %>
     <% else %>
-      <p>There is nothing to reset. Recent Majestic configuration does not differ from the one supplied with the firmware.</p>
+      <p>Нет изменений для сброса! Конфигурация Majestic не отличается от исходного состояния.</p>
     <% fi %>
   </div>
 </div>

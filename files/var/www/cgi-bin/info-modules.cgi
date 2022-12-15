@@ -1,6 +1,6 @@
 #!/usr/bin/haserl
 <%in p/common.cgi %>
-<% page_title="Modules" %>
+<% page_title="Модули" %>
 <%in p/header.cgi %>
 <% ex "lsmod" %>
 <% button_refresh %>

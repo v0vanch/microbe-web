@@ -1,7 +1,7 @@
 #!/usr/bin/haserl
 <%in p/common.cgi %>
 <%
-[ ! -f "/rom/${mj_bin_file}" ] && redirect_to '/' "danger" "Majestic is not supported on this system."
+[ ! -f "/rom/${mj_bin_file}" ] && redirect_to '/' "danger" "Majestic не поддерживается на этой системе."
 
 update_meta() {
   # re-download metafile if older than 1 hour
@@ -43,14 +43,14 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     [ "$mj_filesize_new" -gt "$available_space" ] && redirect_back "danger" "Not enough space to update Majestic. ${mj_filesize_new} KB > ${available_space} KB."
 
     curl --silent --insecure --location -o - http://openipc.s3-eu-west-1.amazonaws.com/majestic.${soc_family}.${fw_variant}.master.tar.bz2 | bunzip2 | tar -x ./majestic -C /usr/bin/
-    [ $? -ne 0 ] && redirect_back "error" "Cannot retrieve update from server."
+    [ $? -ne 0 ] && redirect_back "error" "Не получается скачать обновление с сервера."
     redirect_to "reboot.cgi"
     ;;
   esac
 fi
 
 mj_version_fw=$(/rom${mj_bin_file} -v)
-mj_version_ol="<span class=\"text-secondary\">- not installed in overlay -</span>"
+mj_version_ol="<span class=\"text-secondary\">- не установлен в оверлей -</span>"
 [ -f "$mj_bin_file_ol" ] && mj_version_ol=$($mj_bin_file_ol -v)
 
 if [ -n "$network_gateway" ]; then
@@ -69,54 +69,54 @@ if [ -n "$network_gateway" ]; then
     mj_version_new="unavailable"
   fi
 else
-  mj_version_new="<span class=\"text-danger\">- no access to S3 bucket -</span>"
+  mj_version_new="<span class=\"text-danger\">- нет доступа к S3 bucket -</span>"
 fi
 %>
 <%in p/header.cgi %>
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
-    <h3>Version</h3>
+    <h3>Версия</h3>
     <dl class="list small">
-      <dt>Bundled</dt>
+      <dt>Из прошивки</dt>
       <dd><%= $mj_version_fw %></dd>
-      <dt>In overlay</dt>
+      <dt>В оверлее</dt>
       <dd><%= $mj_version_ol %></dd>
-      <dt>On GitHub</dt>
+      <dt>На GitHub</dt>
       <dd><%= $mj_version_new %></dd>
     </dl>
   </div>
   <div class="col">
-    <h3>Configuration</h3>
+    <h3>Конфигурация</h3>
     <% if [ -z "$(diff /rom/etc/majestic.yaml /etc/majestic.yaml)" ]; then %>
-      <p>Majestic uses original configuration.</p>
-      <p><a href="majestic-settings.cgi">Make changes.</a></p>
+      <p>Majestic использует стандартную конфигурацию.</p>
+      <p><a href="majestic-settings.cgi">Внести изменения.</a></p>
     <% else %>
-      <p>Majestic uses custom configuration.</p>
-      <p><a href="majestic-config-compare.cgi" class="btn btn-primary">See difference</a></p>
+      <p>Majestic использует измененную конфигурацию.</p>
+      <p><a href="majestic-config-compare.cgi" class="btn btn-primary">Посмотреть изменения</a></p>
     <% fi %>
   </div>
   <div class="col">
   <% if [ -n "$network_gateway" ]; then %>
-    <h3>Update</h3>
+    <h3>Обновление</h3>
     <% if [ "$mj_version_new" = "$mj_version_ol" ] || [ -z "$mj_version_ol" -a "$mj_version_new" = "$mj_version_fw" ]; then %>
       <div class="alert alert-success">
-        <p class="mb-1"><b>Nothing to update.</b></p>
-        <p class="mb-0">Latest version is already installed.</p>
+        <p class="mb-1"><b>Обновлений нет.</b></p>
+        <p class="mb-0">Уже установлена последняя версия.</p>
       </div>
     <% else %>
       <% if [ -f "$mj_meta_file" ]; then %>
         <% if [ "$mj_filesize_new" -le "$available_space" ]; then %>
           <form action="<%= $SCRIPT_NAME %>" method="post">
             <% field_hidden "action" "update" %>
-            <% button_submit "Install update" "warning" %>
+            <% button_submit "Установить обновление" "warning" %>
           </form>
         <% else %>
           <div class="alert alert-danger">
-            <p class="mb-1"><b>Not enough space to update Majestic!</b></p>
-            <p class="mb-0">Update requires <%= $mj_filesize_new %>K, but only <%= $available_space %>K is available
+            <p class="mb-1"><b>Недостаточно места, чтобы обновить Majestic!</b></p>
+            <p class="mb-0">Для обновления требуется <%= $mj_filesize_new %>K, но только <%= $available_space %>K доступно
             <% if [ "$mj_filesize_ol" -ge "1" ]; then %>
-            (<%= $free_space %>K of unallocated space plus <%= ${mj_filesize_ol:=0} %>K size of Majestic installed in overlay)
+            (<%= $free_space %>K свободного места плюс <%= ${mj_filesize_ol:=0} %>K размер Majestic установленного в оверлее)
             <% fi %>
             .</p>
           </div>
@@ -124,14 +124,14 @@ fi
       <% fi %>
     <% fi %>
   <% else %>
-    <p class="alert alert-danger">Upgrading requires access to Amazon S3.</p>
+    <p class="alert alert-danger">Для обновления требуется доступ к Amazon S3.</p>
   <% fi %>
   <% if [ -f "$mj_bin_file_ol" ]; then %>
     <div class="alert alert-warning">
-      <p>More recent version of Majestic found in overlay partition. It takes <%= $mj_filesize_ol %> KB of space.</p>
+      <p>Более свежая версия Majestic найдена в разделе оверлея. Она занимает <%= $mj_filesize_ol %> KB места.</p>
       <form action="<%= $SCRIPT_NAME %>" method="post">
         <% field_hidden "action" "rmmj" %>
-        <% button_submit "Revert to bundled version" "warning" %>
+        <% button_submit "Вернуться к версии из прошивки" "warning" %>
       </form>
     </div>
   <% fi %>

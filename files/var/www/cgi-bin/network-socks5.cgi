@@ -2,7 +2,7 @@
 <%in p/common.cgi %>
 <%
 plugin="socks5"
-page_title="SOCKS5 proxy"
+page_title="SOCKS5 прокси"
 
 config_file="${ui_config_dir}/${plugin}.conf"
 [ ! -f "$config_file" ] && touch $config_file
@@ -26,10 +26,10 @@ include $config_file
   <div class="col">
     <form action="<%= $SCRIPT_NAME %>" method="post">
       <% field_hidden "action" "update" %>
-      <% field_text "socks5_host" "SOCKS5 Host" %>
-      <% field_number "socks5_port" "SOCKS5 Port" "1080" %>
-      <% field_text "socks5_username" "SOCKS5 Username" %>
-      <% field_password "socks5_password" "SOCKS5 Password" %>
+      <% field_text "socks5_host" "SOCKS5 Хост" %>
+      <% field_number "socks5_port" "SOCKS5 Порт" "1080" %>
+      <% field_text "socks5_username" "SOCKS5 Логин" %>
+      <% field_password "socks5_password" "SOCKS5 Пароль" %>
       <% button_submit %>
     </form>
   </div>

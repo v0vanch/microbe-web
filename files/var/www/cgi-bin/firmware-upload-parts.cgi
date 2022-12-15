@@ -22,15 +22,15 @@ rootfs)
   cmd="sysupgrade --rootfs=/tmp/${file_name} --force_ver --force_all"
   ;;
 *)
-  error="Please select type of file and upload it again!"
+  error="Пожалуйста выберите тип файла и загрузите его снова!"
   ;;
 esac
 
-[ -z "$file_name"  ] && error="No file found! Did you forget to upload?"
-[ ! -r "$file" ] && error="Cannot read uploded file!"
-[ "$(wc -c $file | awk '{print $1}')" -gt "$maxsize" ] && error="Uploded file is too large! $(wc -c $file | awk '{print $1}') > ${maxsize}."
-[ "$magicnum" -ne "$(xxd -p -l 4 $file)" ] && error="File magic number does not match. Did you upload a wrong file? $(xxd -p -l 4 $file) != $magicnum"
-[ "$sysupgrade_date" -lt "$new_sysupgrade_date" ] && error="This feature requires the latest sysupgrade tool. Please upgrade firmware first."
+[ -z "$file_name"  ] && error="Файл не найден! Вы не забыли его загрузить?"
+[ ! -r "$file" ] && error="Не получилось прочитать загруженный файл!"
+[ "$(wc -c $file | awk '{print $1}')" -gt "$maxsize" ] && error="Загруженный файл слишком большой! $(wc -c $file | awk '{print $1}') > ${maxsize}."
+[ "$magicnum" -ne "$(xxd -p -l 4 $file)" ] && error="Магические числа файла не совпадают. Вы загружаете корректный файл? $(xxd -p -l 4 $file) != $magicnum"
+[ "$sysupgrade_date" -lt "$new_sysupgrade_date" ] && error="Эта функция требует последнюю версию sysupgrade. Пожалуйста, обновите прошивку."
 
 if [ -n "$error" ]; then
   redirect_back "danger" "$error"
@@ -42,6 +42,6 @@ xl "mv $file /tmp/${file_name}"
 $cmd
 %>
 </pre>
-<a class="btn btn-primary" href="/">Go home</a>
+<a class="btn btn-primary" href="/">На главную</a>
 <% fi %>
 <%in p/footer.cgi %>

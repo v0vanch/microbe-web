@@ -1,7 +1,7 @@
 #!/usr/bin/haserl
 <%in p/common.cgi %>
 <%
-page_title="Upgrading firmware"
+page_title="Обновление прошивки"
 c="/usr/sbin/sysupgrade"
 reboot="true"
 [ "true" = "$POST_fw_kernel" ] && c="${c} -k"

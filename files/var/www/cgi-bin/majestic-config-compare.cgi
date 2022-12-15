@@ -1,6 +1,6 @@
 #!/usr/bin/haserl
 <%in p/common.cgi %>
-<% page_title="Majestic configuration changes" %>
+<% page_title="Изменения в конфигурации Majestic" %>
 <%in p/header.cgi %>
 
 <div class="row">
@@ -13,7 +13,7 @@ ex "cat /tmp/majestic.patch"
   </div>
   <div class="col-md-4 col-lg-3 col-xl-3 col-xxl-2">
     <div class="d-grid d-sm-flex d-md-grid gap-2">
-      <a class="btn btn-secondary" href="texteditor.cgi?f=<%= $config_file %>">Edit config as text</a>
+      <a class="btn btn-secondary" href="texteditor.cgi?f=<%= $config_file %>">Редактировать конфигурацию как текст</a>
     </div>
   </div>
 </div>

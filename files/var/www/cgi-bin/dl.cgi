@@ -2,7 +2,7 @@
 <%in p/common.cgi %>
 <%
 filepath=/tmp/webui.log
-[ ! -f "$filepath" ] && redirect_back "danger" "File ${filepath} not found"
+[ ! -f "$filepath" ] && redirect_back "danger" "Файл ${filepath} не найден"
 
 echo "HTTP/1.0 200 OK
 Date: $(time_http)

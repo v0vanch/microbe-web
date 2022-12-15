@@ -2,7 +2,7 @@
 <%in p/common.cgi %>
 <%
 plugin="network"
-page_title="Network settings"
+page_title="Настройки сети"
 params="address dhcp dns_1 dns_2 gateway hostname netmask"
 tmp_file=/tmp/${plugin}.conf
 
@@ -20,12 +20,12 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
       done; unset _p
 
       if [ "false" = "$network_dhcp" ]; then
-        [ -z "$network_default_interface" ] && flash_append "danger" "Default network interface cannot be empty." && error=1
-        [ -z "$network_address" ] && flash_append "danger" "IP address cannot be empty." && error=1
-        [ -z "$network_netmask" ] && flash_append "danger" "Networking mask cannot be empty." && error=1
-    #    [ -z "$network_gateway" ] && flash_append "danger" "Gateway IP address cannot be empty." && error=1
-    #    [ -z "$network_dns_1" ] && flash_append "danger" "Nameserver address cannot be empty." && error=1
-    #    [ -z "$network_dns_2" ] && flash_append "danger" "Nameserver address cannot be empty." && error=1
+        [ -z "$network_default_interface" ] && flash_append "danger" "Сетевой интерфейс по умолчанию не может быть пустым." && error=1
+        [ -z "$network_address" ] && flash_append "danger" "IP адрес не может быть пустым." && error=1
+        [ -z "$network_netmask" ] && flash_append "danger" "Маска подсети не может быть пустой." && error=1
+    #    [ -z "$network_gateway" ] && flash_append "danger" "IP адрес шлюза не может быть пустым." && error=1
+    #    [ -z "$network_dns_1" ] && flash_append "danger" "DNS адрес не может быть пустым." && error=1
+    #    [ -z "$network_dns_2" ] && flash_append "danger" "DNS адрес не может быть пустым." && error=1
       fi
 
       if [ -z "$error" ]; then
@@ -96,23 +96,23 @@ fi
   <div class="col col-md-6 col-lg-4 mb-4">
     <form action="<%= $SCRIPT_NAME %>" method="post">
       <% field_hidden "action" "update" %>
-      <% field_text "network_hostname" "Hostname" "Make hostname unique using MAC address information: ${network_macaddr//:/-}" %>
-      <% field_select "network_default_interface" "Default network interface" "$network_interfaces" %>
-      <% field_switch "network_dhcp" "Use DHCP" %>
-      <% field_text "network_address" "IP Address" %>
-      <% field_text "network_netmask" "IP Netmask" %>
-      <% field_text "network_gateway" "Gateway" %>
+      <% field_text "network_hostname" "Имя хоста" "Сделайте имя уникальным используя информацию MAC-адреса: ${network_macaddr//:/-}" %>
+      <% field_select "network_default_interface" "Сетевой интерфейс по умолчанию" "$network_interfaces" %>
+      <% field_switch "network_dhcp" "Использовать DHCP" %>
+      <% field_text "network_address" "IP адрес" %>
+      <% field_text "network_netmask" "Маска подсети" %>
+      <% field_text "network_gateway" "Шлюз" %>
       <% field_text "network_dns_1" "DNS 1" %>
       <% field_text "network_dns_2" "DNS 2" %>
       <% button_submit %>
     </form>
 
     <div class="alert alert-danger mt-4">
-      <h5>Reset network configuration</h5>
-      <p>Restore config file bundled with firmware. Your changes to the default configuration will be lost.</p>
+      <h5>Сброс сетевой конфигурации</h5>
+      <p>Восстановите конфигурацию до исходного состояния. Ваши изменения конфигурации будут утеряны.</p>
       <form action="<%= $SCRIPT_NAME %>" method="post" enctype="multipart/form-data">
         <% field_hidden "action" "reset" %>
-        <% button_submit "Reset config" "danger" %>
+        <% button_submit "Сбросить конфигурацию" "danger" %>
       </form>
     </div>
   </div>

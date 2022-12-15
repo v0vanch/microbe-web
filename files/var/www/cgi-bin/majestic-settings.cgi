@@ -1,14 +1,14 @@
 #!/usr/bin/haserl
 <%in p/common.cgi %>
 <%
-page_title="Majestic settings"
+page_title="Конфигурация Majestic"
 mj=$(echo "$mj" | sed "s/ /_/g")
 only="$GET_tab"; [ -z "$only" ] && only="system"
 eval title="\$tT_mj_${only}"
 
 # hide certain domains if not supported
 if [ -n "$(eval echo "\$mj_hide_${only}" | sed -n "/\b${soc_family}\b/p")" ]; then
-  redirect_to "majestic-settings.cgi" "danger" "$title is not supported on your system."
+  redirect_to "majestic-settings.cgi" "danger" "$title не поддерживается на этой системе."
 fi
 
 if [ "POST" = "$REQUEST_METHOD" ]; then
@@ -163,7 +163,7 @@ for line in $_mj2; do
     range)    field_range    "$form_field_name" "$label_text" "$options" "$hint";;
     select)   field_select   "$form_field_name" "$label_text" "$options" "$hint";;
     string)   field_text     "$form_field_name" "$label_text" "$hint";;
-    *) echo "<span class=\"text-danger\">UNKNOWN FIELD TYPE ${form_field_type} FOR ${_name} WITH LABEL ${label_text}</span>";;
+    *) echo "<span class=\"text-danger\">НЕИЗВЕСТНЫЙ ТИП ПОЛЯ ${form_field_type} ДЛЯ ${_name} С НАЗВАНИЕМ ${label_text}</span>";;
   esac
 done
 %>
@@ -171,9 +171,9 @@ done
     </form>
   </div>
   <div class="col">
-    <h3>Related settings</h3>
+    <h3>Связанные настройки</h3>
     <pre><% echo -e "$config" %></pre>
-    <p><a href="info-majestic.cgi">See majestic.yaml</a></p>
+    <p><a href="info-majestic.cgi">Открыть majestic.yaml</a></p>
   </div>
 </div>
 

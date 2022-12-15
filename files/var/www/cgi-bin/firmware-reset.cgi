@@ -1,10 +1,10 @@
 #!/usr/bin/haserl
 <%in p/common.cgi %>
-<% page_title="Erasing overlay" %>
+<% page_title="Стирание оверлея" %>
 <%in p/header.cgi %>
 <pre class="bg-light p-4 log-scroll">
 <% sysupgrade -n %>
 </pre>
-<a class="btn btn-primary" href="/">Go home</a>
-<a class="btn btn-danger" href="reboot.cgi">Reboot camera</a>
+<a class="btn btn-primary" href="/">На главную</a>
+<a class="btn btn-danger" href="reboot.cgi">Перезагрузить камеру</a>
 <%in p/footer.cgi %>

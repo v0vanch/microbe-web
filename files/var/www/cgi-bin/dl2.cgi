@@ -15,11 +15,11 @@ case "$filename" in
     netstat -a >$filepath
     ;;
   *)
-    echo "Unknown file."
+    echo "Неизвестный файл."
     exit 1
 esac
 
-[ ! -f "$filepath" ] && redirect_back "danger" "File ${filename} not found"
+[ ! -f "$filepath" ] && redirect_back "danger" "Файл ${filename} не найден"
 
 echo "HTTP/1.0 200 OK
 Date: $(time_http)
