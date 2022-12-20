@@ -26,9 +26,9 @@ web_version="master"
     <dl class="list small">
       <dt>Установленая</dt><dd><%= $ui_version %></dd>
       <dt>Последняя</dt><dd id="microbe-web-stk-ver"></dd>
-      <%
-        #<dt>Стабильная</dt><dd id="microbe-web-master-ver"></dd>
-        #<dt>Нестабильная</dt><dd id="microbe-web-dev-ver"></dd>
+      <%#
+        <dt>Стабильная</dt><dd id="microbe-web-master-ver"></dd>
+        <dt>Нестабильная</dt><dd id="microbe-web-dev-ver"></dd>
       %>
     </dl>
   </div>
@@ -38,9 +38,7 @@ web_version="master"
     <form action="webui-update.cgi" method="post">
       <% field_hidden "action" "update" %>
       <% field_hidden "web_version" "stk" %>
-      <%
-        #field_select "web_version" "Ветка" "master:Stable,dev:Development,stk:STK"
-      %>
+      <%# field_select "web_version" "Ветка" "master:Stable,dev:Development,stk:STK" %>
       <% field_checkbox "web_verbose" "Подробный вывод." %>
       <% field_checkbox "web_enforce" "Установить, даже если версия не поменялась." %>
       <% field_checkbox "web_noreboot" "Не перезагружать систему после обновления." %>

@@ -16,7 +16,7 @@ if [ "POST" = "$REQUEST_METHOD" ]; then
     sanitize "${plugin}_${_p}"
   done; unset _p
 
-  [ -z "$admin_name"  ] && flash_append "danger" Имя админа не может быть пустым." && error=1
+  [ -z "$admin_name"  ] && flash_append "danger" "Имя админа не может быть пустым." && error=1
   [ -z "$admin_email" ] && flash_append "danger" "Email админа не может быть пустым." && error=1
   # [ -z "$admin_telegram" ] && error="Telegram никнейм админа не может быть пустым."
 

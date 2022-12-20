@@ -91,9 +91,7 @@ Pragma: no-cache
 
   <main class="pb-4">
     <div class="container" style="min-height: 90vh">
-      <%
-        #<p class="text-end x-small"><%= $(signature) %></p>
-      %>
+      <%# <p class="text-end x-small"><%= $(signature) %></p> %>
 
 <% if [ -z "$network_gateway" ]; then %>
 <div class="alert alert-warning">
