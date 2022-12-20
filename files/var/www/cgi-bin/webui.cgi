@@ -64,11 +64,9 @@ function queryBranch(repo, branch) {
     const d = JSON.parse(this.response);
     const sha_short = d.commit.sha.slice(0,7);
     const date = d.commit.commit.author.date.slice(0,10);
-    const link = document.createElement('a');
-    link.href = GH_URL + repo + '/commits/' + branch;
-    link.target = '_blank';
-    link.textContent = branch + '+' + sha_short + ', ' + date;
-    const el = $('#' + repo + '-' + branch + '-ver').appendChild(link);
+    const text = document.createElement('span');
+    text.textContent = branch + '+' + sha_short + ', ' + date;
+    const el = $('#' + repo + '-' + branch + '-ver').appendChild(text);
   });
   oReq.open("GET", GH_API + repo + '/branches/' + branch);
   oReq.setRequestHeader("Authorization", "Basic " + btoa("<%= "${GITHUB_USERNAME}:${GITHUB_TOKEN}" %>"));
