@@ -3,7 +3,7 @@
 
   <footer class="bg-light x-small">
     <div class="container pt-3">
-      <p class="text-end">Основано на <a href="https://github.com/OpenIPC/microbe-web">Microbe Web UI</a>, части <a href="https://openipc.org/">проекта OpenIPC</a>.</p>
+      <p class="text-end"><a href="https://meldana.com">meldana.com</a></p>
     </div>
   </footer>
 

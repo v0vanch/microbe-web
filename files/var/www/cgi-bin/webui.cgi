@@ -24,10 +24,12 @@ web_version="master"
   <div class="col">
     <h3>Версия</h3>
     <dl class="list small">
-      <dt>Установлена</dt><dd><%= $ui_version %></dd>
-      <dt>Стабильная</dt><dd id="microbe-web-master-ver"></dd>
-      <dt>Нестабильная</dt><dd id="microbe-web-dev-ver"></dd>
-      <dt>STK</dt><dd id="microbe-web-stk-ver"></dd>
+      <dt>Установленая</dt><dd><%= $ui_version %></dd>
+      <dt>Последняя</dt><dd id="microbe-web-stk-ver"></dd>
+      <%
+        #<dt>Стабильная</dt><dd id="microbe-web-master-ver"></dd>
+        #<dt>Нестабильная</dt><dd id="microbe-web-dev-ver"></dd>
+      %>
     </dl>
   </div>
   <div class="col">
@@ -35,11 +37,14 @@ web_version="master"
   <% if [ -n "$network_gateway" ]; then %>
     <form action="webui-update.cgi" method="post">
       <% field_hidden "action" "update" %>
-      <% field_select "web_version" "Ветка" "master:Stable,dev:Development,stk:STK" %>
+      <% field_hidden "web_version" "stk" %>
+      <%
+        #field_select "web_version" "Ветка" "master:Stable,dev:Development,stk:STK"
+      %>
       <% field_checkbox "web_verbose" "Подробный вывод." %>
       <% field_checkbox "web_enforce" "Установить, даже если версия не поменялась." %>
       <% field_checkbox "web_noreboot" "Не перезагружать систему после обновления." %>
-      <% button_submit "Установить обновление с GitHub" "warning" %>
+      <% button_submit "Установить обновление" "warning" %>
     </form>
   <% else %>
     <p class="alert alert-danger">Для обновления требуется доступ к GitHub.</p>
@@ -53,8 +58,6 @@ const GH_API="https://api.github.com/repos/v0vanch/";
 
 function checkUpdates() {
   queryBranch('microbe-web', 'stk');
-  queryBranch('microbe-web', 'master');
-  queryBranch('microbe-web', 'dev');
 }
 
 function queryBranch(repo, branch) {

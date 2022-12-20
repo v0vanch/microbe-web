@@ -61,32 +61,11 @@ Pragma: no-cache
               <li><a class="dropdown-item" href="admin.cgi">Профиль админа</a></li>
               <li><a class="dropdown-item" href="debugging.cgi">Отладка</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="reset.cgi">Сброс...</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownMajestic" role="button">Majestic</a>
-            <ul aria-labelledby="dropdownMajestic" class="dropdown-menu">
-<%
-mj=$(echo "$mj" | sed "s/ /_/g")
-for _line in $mj; do
-  _parameter=${_line%%|*};
-  _param_name=${_parameter#.};
-  _param_domain=${_param_name%.*}
-  if [ "$_parameter_domain_old" != "$_param_domain" ]; then
-    # hide certain domains if not supported
-    [ -n "$(eval echo "\$mj_hide_${_param_domain}" | sed -n "/\b${soc_family}\b/p")" ] && continue
-    [ -n "$(eval echo "\$mj_show_${_param_domain}_vendor")" ] && [ -z "$(eval echo "\$mj_show_${_param_domain}_vendor" | sed -n "/\b${soc_vendor}\b/p")" ] && continue
-    _parameter_domain_old="$_param_domain"
-    _css="class=\"dropdown-item\""; [ "$_param_domain" = "$only" ] && _css="class=\"dropdown-item active\" aria-current=\"true\""
-    echo "<li><a ${_css} href=\"majestic-settings.cgi?tab=${_param_domain}\">$(eval echo \$tT_mj_${_param_domain})</a></li>"
-  fi
-done
-unset _css; unset _param_domain; unset _line; unset _param_name; unset _parameter_domain_old; unset _parameter;
-%>
-              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="majestic-settings.cgi">Majestic</a></li>
               <li><a class="dropdown-item" href="info-majestic.cgi">Majestic YAML</a></li>
-              <li><a class="dropdown-item" href="majestic-config-actions.cgi">Обслуживание Majestic</a></li>
+              <li><a class="dropdown-item" href="majestic-config-actions.cgi">Majestic обслуживание</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="reset.cgi">Сброс...</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -105,14 +84,6 @@ unset _css; unset _param_domain; unset _line; unset _param_name; unset _paramete
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="preview.cgi">Камера</a></li>
-          <li class="nav-item dropdown">
-            <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownHelp" role="button">Помощь</a>
-            <ul aria-labelledby="dropdownHelp" class="dropdown-menu dropdown-menu-lg-end">
-              <li><a class="dropdown-item" href="https://openipc.org/">Об OpenIPC</a></li>
-              <li><a class="dropdown-item" href="https://openipc.org/majestic-endpoints">Majestic Endpoints</a></li>
-              <li><a class="dropdown-item" href="https://openipc.org/wiki/">OpenIPC Wiki</a></li>
-            </ul>
-          </li>
         </ul>
       </div>
     </div>
@@ -120,7 +91,9 @@ unset _css; unset _param_domain; unset _line; unset _param_name; unset _paramete
 
   <main class="pb-4">
     <div class="container" style="min-height: 90vh">
-      <p class="text-end x-small"><%= $(signature) %></p>
+      <%
+        #<p class="text-end x-small"><%= $(signature) %></p>
+      %>
 
 <% if [ -z "$network_gateway" ]; then %>
 <div class="alert alert-warning">

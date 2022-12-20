@@ -31,7 +31,7 @@ body.debug .col {border: solid 1px #f3f4fc;}
     --bs-dropdown-link-active-bg: #002147;
 }
 
-.btn-primary, .btn-outline-primary {
+.btn-primary {
     --bs-btn-bg: #002147;
     --bs-btn-border-color: #002147;
     --bs-btn-hover-bg: #000f21;
@@ -40,6 +40,17 @@ body.debug .col {border: solid 1px #f3f4fc;}
     --bs-btn-active-bg: #000914;
     --bs-btn-active-border-color: #000307;
     --bs-btn-disabled-bg: #002147;
+    --bs-btn-disabled-border-color: #002147;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: #002147;
+    --bs-btn-border-color: #002147;
+    --bs-btn-hover-bg: #002147;
+    --bs-btn-hover-border-color: #002147;
+    --bs-btn-active-bg: #002147;
+    --bs-btn-active-border-color: #002147;
+    --bs-btn-disabled-color: #002147;
     --bs-btn-disabled-border-color: #002147;
 }
 
