@@ -21,7 +21,8 @@ Pragma: no-cache
   <nav class="navbar bg-white shadow-sm navbar-expand-lg mb-2">
     <div class="container">
       <a class="navbar-brand" href="status.cgi"><img alt="Image: OpenIPC logo" height="32" src="/a/logo.svg">
-        <!--<span class="x-small ms-3"><%= $fw_variant %></span>--></a>
+        <%# <span class="x-small ms-3"><%= $fw_variant %></span> %>
+      </a>
       <% if [ -n "$soc_temp" ]; then %>
         <span id="soc-temp" class="text-white bg-primary rounded small" title="<%= $tSoCTemp %>"><%= $soc_temp %>°C</span>
       <% fi %>
@@ -34,6 +35,7 @@ Pragma: no-cache
             <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownInformation" role="button">Инфо</a>
             <ul aria-labelledby="dropdownInformation" class="dropdown-menu">
               <li><a class="dropdown-item" href="status.cgi">Статус устройства</a></li>
+              <%#
               <li><a class="dropdown-item" href="info-cron.cgi">Настройки Cron</a></li>
               <li><a class="dropdown-item" href="info-dmesg.cgi">Диагностические сообщения</a></li>
               <li><a class="dropdown-item" href="info-httpd.cgi">HTTPd среда</a></li>
@@ -41,6 +43,7 @@ Pragma: no-cache
               <li><a class="dropdown-item" href="info-netstat.cgi">Статистика сети</a></li>
               <li><a class="dropdown-item" href="info-log.cgi">Логи</a></li>
               <li><a class="dropdown-item" href="info-overlay.cgi">Раздел оверлея</a></li>
+              %>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -56,14 +59,18 @@ Pragma: no-cache
               <li><a class="dropdown-item" href="network.cgi">Сеть</a></li>
               <li><a class="dropdown-item" href="timezone.cgi">Временная зона</a></li>
               <li><a class="dropdown-item" href="network-ntp.cgi">Синхронизация времени</a></li>
+              <%#
               <li><a class="dropdown-item" href="network-socks5.cgi">SOCKS5 Прокси</a></li>
               <li><a class="dropdown-item" href="webui-settings.cgi">Веб-интерфейс</a></li>
+              %>
               <li><a class="dropdown-item" href="admin.cgi">Профиль админа</a></li>
               <li><a class="dropdown-item" href="debugging.cgi">Отладка</a></li>
+              <%#
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="majestic-settings.cgi">Majestic</a></li>
               <li><a class="dropdown-item" href="info-majestic.cgi">Majestic YAML</a></li>
               <li><a class="dropdown-item" href="majestic-config-actions.cgi">Majestic обслуживание</a></li>
+              %>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="reset.cgi">Сброс...</a></li>
             </ul>
@@ -71,12 +78,15 @@ Pragma: no-cache
           <li class="nav-item dropdown">
             <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownTools" role="button">Инструменты</a>
             <ul aria-labelledby="dropdownTools" class="dropdown-menu">
+              <%#
               <li><a class="dropdown-item" href="tools.cgi">Ping & Traceroute</a></li>
               <li><a class="dropdown-item" href="console.cgi">Веб консоль</a></li>
               <li><a class="dropdown-item" href="ssh-keys.cgi">SSH ключ</a></li>
+              %>
               <li><a class="dropdown-item" href="sdcard.cgi">SD карта</a></li>
             </ul>
           </li>
+          <%#
           <li class="nav-item dropdown">
             <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownServices" role="button">Сервисы</a>
             <ul aria-labelledby="dropdownServices" class="dropdown-menu">
@@ -84,7 +94,9 @@ Pragma: no-cache
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="preview.cgi">Камера</a></li>
+          %>
         </ul>
+        <a class="btn btn-primary" href="preview.cgi">Камера</a>
       </div>
     </div>
   </nav>

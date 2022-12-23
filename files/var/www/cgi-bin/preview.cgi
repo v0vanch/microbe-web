@@ -20,10 +20,13 @@ size_h=${size#*x}
           <img src="/a/light-off.svg" alt="Image: Night mode indicator" id="night-mode-status">
         </div>
         <button class="form-control btn btn-primary text-start" type="button" id="toggle-night-mode">Вкл/выкл ночной режим</button>
+        <%#
         <div class="input-group-text">
           <a href="majestic-settings.cgi?tab=nightMode" title="Night mode settings"><img src="/a/gear.svg" alt="Gear"></a>
         </div>
+        %>
       </div>
+      <%#
       <div class="input-group">
         <button class="form-control btn btn-primary text-start" type="button" data-sendto="email">Отправить по email</button>
         <div class="input-group-text">
@@ -60,10 +63,13 @@ size_h=${size#*x}
           <a href="plugin-send2openwall.cgi" title="Настройки Open Wall"><img src="/a/gear.svg" alt="Gear"></a>
         </div>
       </div>
+      %>
     </div>
+    <%#
     <div class="alert alert-danger small">
-      Функция PTZ еще не готова. Пожалуйста, рассмотрите возможность <a href="https://t.me/OpenIPC">поддержки дальнейшей разработки</a>.
+      Функция PTZ еще не готова.
     </div>
+    %>
   </div>
 </div>
 
@@ -91,7 +97,7 @@ function sendToApi(endpoint) {
 $$("a[id^=pan-],a[id^=zoom-]").forEach(el => {
   el.addEventListener("click", event => {
     event.preventDefault();
-    alert("Sorry, this feature does not work, yet!");
+    alert("Эта функция пока не работает!");
   });
 });
 
