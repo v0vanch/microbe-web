@@ -2,8 +2,8 @@
   </main>
 
   <footer class="bg-light x-small">
-    <div class="container pt-3">
-      <p class="text-end"><a href="https://meldana.com">meldana.com</a></p>
+    <div class="container p-3 text-end">
+      <a href="https://meldana.com"><img src="/a/meldana-logo.svg" alt="meldana.com logo" height="32px"></a>
     </div>
   </footer>
 
