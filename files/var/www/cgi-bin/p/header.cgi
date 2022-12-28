@@ -20,7 +20,7 @@ Pragma: no-cache
 <body id="page-<%= $pagename %>" class="<%= $fw_variant %><% [ "$debug" -ge "1" ] && echo -n " debug" %>">
   <nav class="navbar bg-white shadow-sm navbar-expand-lg mb-2">
     <div class="container">
-      <a class="navbar-brand" href="status.cgi"><img alt="Image: OpenIPC logo" height="32" src="/a/logo.svg">
+      <a class="navbar-brand" href="status.cgi"><img alt="" height="32" src="/a/logo.svg">
         <%# <span class="x-small ms-3"><%= $fw_variant %></span> %>
       </a>
       <% if [ -n "$soc_temp" ]; then %>
