@@ -15,13 +15,16 @@ fw_rootfs="true"
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
   <div class="col">
     <h3>Версия</h3>
-      <dl class="list small">
+      <dl class="small">
       <dt>Установленная</dt>
       <dd><%= $fw_version %></dd>
+      <% if [ -n "$GET_github" ]; then %>
       <dt>На GitHub</dt>
       <dd id="firmware-master-ver"><%= $fw_date %></dd>
+      <% fi %>
     </dl>
   </div>
+  <% if [ -n "$GET_github" ]; then %>
   <div class="col">
     <h3>Обновление</h3>
     <% if [ -n "$network_gateway" ]; then %>
@@ -37,6 +40,7 @@ fw_rootfs="true"
       <p class="alert alert-danger">Для обновления требуется доступ к GitHub.</p>
     <% fi %>
   </div>
+  <% fi %>
   <div class="col">
     <h3>Загрузить ядро & RootFS</h3>
     <form action="firmware-upload-parts.cgi" method="post" enctype="multipart/form-data">
